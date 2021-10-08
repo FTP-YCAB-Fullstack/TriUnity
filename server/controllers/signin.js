@@ -4,7 +4,6 @@ let User = require("../models/User");
 class SignIn {
   static async Register(req, res, next) {
     const { firstName, lastName, email, password } = req.body;
-    User = await User();
 
     const user = await User.create({ firstName, lastName, email, password });
     const data = await user.save();
