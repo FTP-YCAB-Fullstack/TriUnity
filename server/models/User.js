@@ -1,3 +1,4 @@
+const db = require("mongoose");
 const Schema = require("mongoose").Schema;
 
 const validateEmail = email => {
@@ -34,6 +35,7 @@ const User = new Schema({
   }
 });
 
-module.exports = db => {
+module.exports = async () => {
+  await db.connect(process.env.DB_URL);
   return db.model("User", User);
 };
