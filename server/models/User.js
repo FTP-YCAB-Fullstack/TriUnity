@@ -7,6 +7,12 @@ const validateEmail = email => {
   return re.test(email);
 };
 
+const validatePassword = password => {
+  const character = /[A-Z]+/.test(password) && /[a-z]+/.test(password);
+  const number = /[0-9]+/.test(password);
+  return character && number;
+};
+
 const User = new Schema(
   {
     firstName: {
@@ -27,13 +33,10 @@ const User = new Schema(
       type: String,
       required: true,
       min: [6, "Please fill a password min 6 character"],
-      validate: {
-        validator: password => {
-          const character = /[A-Z]+/.test(password) && /[a-z]+/.test(password);
-          const number = /[0-9]+/.test(password);
-          return character && number;
-        }
-      }
+      validate: [
+        validatePassword,
+        "Password must have numbers, uppercase and lowercase letters"
+      ]
     }
   },
   {
