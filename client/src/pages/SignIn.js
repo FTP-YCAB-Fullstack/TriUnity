@@ -1,12 +1,23 @@
 import React from "react";
-import Login from "../components/Login";
 import axios from "axios";
+import Login from "../components/Login";
+import Register from "../components/Register";
 
 const SignIn = () => {
   const onSubmitLogin = async event => {
     event.preventDefault();
-
     const { data } = await axios.post("http://localhost:5000/users/login", {
+      email: event.target.email.value,
+      password: event.target.password.value
+    });
+    console.log(data);
+  };
+
+  const onSubmitRegister = async event => {
+    event.preventDefault();
+    const { data } = await axios.post("http://localhost:5000/users/register", {
+      firstName: event.target.firstName.value,
+      lastName: event.target.lastName.value,
       email: event.target.email.value,
       password: event.target.password.value
     });
@@ -16,26 +27,7 @@ const SignIn = () => {
   return (
     <>
       <Login onSubmitLogin={onSubmitLogin} />
-      <form>
-        <h2>Register</h2>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="inset your first name in here..."
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="inset your last name in here..."
-        />
-        <input type="text" name="email" placeholder="insert email in here..." />
-        <input
-          type="password"
-          name="password"
-          placeholder="insert password in here..."
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <Register onSubmitRegister={onSubmitRegister} />
     </>
   );
 };
