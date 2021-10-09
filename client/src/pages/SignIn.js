@@ -6,12 +6,17 @@ import Register from "../components/Register";
 const SignIn = () => {
   const onSubmitLogin = async event => {
     event.preventDefault();
-    const response = await axios.post("http://localhost:5000/users/login", {
-      email: event.target.email.value,
-      password: event.target.password.value
-    });
-
-    console.log(response);
+    const response = await axios
+      .post("http://localhost:5000/users/login", {
+        email: event.target.email.value,
+        password: event.target.password.value
+      })
+      .catch(error => error.response);
+    if (response && response.status === 200) {
+      console.log(response.data);
+    } else {
+      console.error(response);
+    }
   };
 
   const onSubmitRegister = async event => {
@@ -27,7 +32,7 @@ const SignIn = () => {
     if (response && response.status === 201) {
       console.log(response.data);
     } else {
-      console.error(response.data);
+      console.error(response);
     }
   };
 
