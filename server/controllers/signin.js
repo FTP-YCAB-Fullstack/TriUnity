@@ -12,7 +12,6 @@ class SignIn {
         password
       });
       const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
-
       res.status(201).json({
         message: "success register",
         token,
@@ -24,26 +23,30 @@ class SignIn {
         }
       });
     } catch (error) {
-      next({ code: 500, message: error.message });
+      next(error);
     }
   }
 
   static async Login(req, res, next) {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!data || !bcrypt.compareSync(password, data.password)) {
-      next({ code: 400, message: "email or password is wrong" });
-    } else {
-      const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
-      res.status(200).json({
-        message: "success login",
-        token,
-        user: {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email
-        }
-      });
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (!data || !bcrypt.compareSync(password, data.password)) {
+        next({ code: 401, message: "email or password is wrong" });
+      } else {
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
+        res.status(200).json({
+          message: "success login",
+          token,
+          user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email
+          }
+        });
+      }
+    } catch (error) {
+      next(error);
     }
   }
 }

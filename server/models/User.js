@@ -14,6 +14,10 @@ const validatePassword = password => {
   return character && number;
 };
 
+const validateLengthPassword = password => {
+  return password.length >= 6;
+};
+
 const User = new Schema(
   {
     firstName: {
@@ -27,16 +31,21 @@ const User = new Schema(
     email: {
       type: String,
       required: true,
-      unique: [true, "This email has been registered"],
+      unique: true,
       validate: [validateEmail, "Please fill a valid email address"]
     },
     password: {
       type: String,
       required: true,
-      min: [6, "Please fill a password min 6 character"],
       validate: [
-        validatePassword,
-        "Password must have numbers, uppercase and lowercase letters"
+        {
+          validator: validateLengthPassword,
+          msg: "Please fill a password min 6 character"
+        },
+        {
+          validator: validatePassword,
+          msg: "Password must have numbers, uppercase and lowercase letters"
+        }
       ]
     }
   },
