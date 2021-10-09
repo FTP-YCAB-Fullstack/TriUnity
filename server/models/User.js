@@ -1,5 +1,6 @@
 const Schema = require("mongoose").Schema;
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const connection = mongoose.createConnection(process.env.DB_URL);
 
 const validateEmail = email => {
@@ -43,5 +44,9 @@ const User = new Schema(
     versionKey: false
   }
 );
+
+User.post("validate", doc => {
+  doc.password = bcrypt.hashSync(doc.password, 8);
+});
 
 module.exports = connection.model("User", User);

@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
@@ -10,7 +9,7 @@ class SignIn {
         firstName,
         lastName,
         email,
-        password: bcrypt.hashSync(password, 8)
+        password
       });
       const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
 
