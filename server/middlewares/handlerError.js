@@ -7,6 +7,7 @@ const handlerError = (err, req, res, next) => {
     const requiredError = err.message.match(/`\w+`/);
     const uniqueError = /E11000/.test(err.message);
     const validatePasswordError = /password/i.test(err.message);
+    const signaturError = /invalid signature/.test(err.message);
     if (requiredError) {
       err.code = 422;
       err.message = `Required to fill ${String(requiredError).substr(
@@ -18,6 +19,8 @@ const handlerError = (err, req, res, next) => {
       err.message = "Email has been registered";
     } else if (validatePasswordError) {
       err.code = 403;
+    } else if (signaturError) {
+      err.code = 401;
     }
     res.status(err.code || 500).json({
       message: err.message || "Internal Server Error"

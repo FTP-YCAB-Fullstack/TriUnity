@@ -10,7 +10,7 @@ const port = process.env.SERVER_PORT;
 
 const corsConfig = {
   credentials: true,
-  origin: "http://localhost:3000"
+  origin: process.env.ORIGIN
 };
 
 app
@@ -18,11 +18,6 @@ app
   .use(cookieParser())
   .use(express.json())
   .use(express.urlencoded({ extended: false }));
-
-app.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-});
 
 app.use(mainRouter).use(handlerError);
 
