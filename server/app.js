@@ -1,12 +1,18 @@
 "use strict"
+require("dotenv").config();
 
-const express = require('express')
-const router = require('./routes')
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const mainRouter = require("./routes");
+const handlerError = require("./middlewares/handlerError");
+const port = process.env.SERVER_PORT;
 
-const app = express()
-const port = 3500
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use(express.json())
-app.use(router)
+app.use(mainRouter);
+app.use(handlerError);
 
-app.listen(port, () => console.log(`server running ${port}`))
+app.listen(port, () => console.log(`Running server on port ${port}`));
