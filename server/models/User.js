@@ -1,7 +1,6 @@
 const Schema = require("mongoose").Schema;
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const connection = mongoose.createConnection(process.env.DB_URL);
+const connection = require("mongoose").createConnection(process.env.DB_URL);
 const validate = require("../utils/validate");
 
 const User = new Schema(
@@ -36,8 +35,7 @@ const User = new Schema(
     }
   },
   {
-    versionKey: false,
-    _id: false
+    versionKey: false
   }
 );
 

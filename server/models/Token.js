@@ -1,11 +1,10 @@
 const Schema = require("mongoose").Schema;
-const mongoose = require("mongoose");
-const connection = mongoose.createConnection(process.env.DB_URL);
+const connection = require("mongoose").createConnection(process.env.DB_URL);
 const validate = require("../utils/validate");
 
 const Token = new Schema(
   {
-    email: {
+    userId: {
       type: String,
       required: true,
       unique: true,
