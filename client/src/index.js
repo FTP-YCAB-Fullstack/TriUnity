@@ -4,15 +4,19 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { PublicRoute } from "./components/Routes";
 import { CookiesProvider } from "react-cookie";
 import SignIn from "./pages/SignIn";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const Main = () => {
   return (
     <CookiesProvider>
-      <Router>
-        <Switch>
-          <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
+          </Switch>
+        </Router>
+      </Provider>
     </CookiesProvider>
   );
 };

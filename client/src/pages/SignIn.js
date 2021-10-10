@@ -5,7 +5,7 @@ import Register from "../components/Register";
 import { useCookies } from "react-cookie";
 
 const SignIn = () => {
-  const [cookies, setCookies] = useCookies(["token"]);
+  const [, setCookies] = useCookies(["token"]);
 
   const onSubmitLogin = async event => {
     event.preventDefault();
