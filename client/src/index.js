@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { PublicRoute } from "./components/Routes";
 import { CookiesProvider } from "react-cookie";
-import SignIn from "./pages/SignIn";
 import { Provider } from "react-redux";
+import './tailwind.css'
 import store from "./redux/store";
-import "./style.css";
+// import "./style.css";
+import SignIn from "./pages/SignIn";
+import Homepage from "./pages/Homepage";
 
 const Main = () => {
   return (
@@ -15,6 +17,7 @@ const Main = () => {
         <Router>
           <Switch>
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
+            <PublicRoute onlyPublic path="/home" exact component={Homepage} />
           </Switch>
         </Router>
       </Provider>
