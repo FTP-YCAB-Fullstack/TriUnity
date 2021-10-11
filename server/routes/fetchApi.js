@@ -10,7 +10,7 @@ FetchApiRouter.get('/photos', async function(req,res) {
             method: 'GET',
             url: url
         });
-        console.log(url)
+        // console.log(url)
 
         res.send(data.data.map(function 
             (item) {
@@ -35,9 +35,32 @@ FetchApiRouter.get('/collection', async function(req,res) {
             method: 'GET',
             url: url
         });
-        console.log(url)
+        // console.log(url)
 
-        res.send(data.data)
+        res.send(data.data.map(function
+            (item) {
+            return {
+                id : item.id,
+                title : item.title,
+                tags : item.tags
+                .map(function(items) {
+                    if(items.source) {
+                        return {
+                            image_id : items.source.cover_photo.id,
+                            image : items.source.cover_photo.urls.regular,
+                            description : items.source.cover_photo.alt_description,
+                            user : items.source.cover_photo.user.profile_image.medium
+                        }
+                    } return items.source
+                    // console.log(JSON.stringify(items.source.cover_photo.urls))
+                    // return items.source
+                })
+                .filter(function(items) {
+                    console.log(items)
+                    return items !== undefined
+                })
+            }
+        }))
     } catch (error) {
         res.status(500).json({
             message: error.message || "internal server error"
