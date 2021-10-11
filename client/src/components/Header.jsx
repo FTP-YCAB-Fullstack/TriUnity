@@ -9,7 +9,7 @@ function Header() {
                     <input type="text" placeholder="Search Photo here..."/> 
                     <input type="submit" value="Search"/>
                 </form>
-                <button>Sell your Photos</button>
+                <button>Sell your Photo</button>
             </header>
         </div>
     )
