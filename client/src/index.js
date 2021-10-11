@@ -16,6 +16,7 @@ const Main = () => {
         <Router>
           <Switch>
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
+            <PublicRoute onlyPublic path="/profile" exact component={Profile} />
           </Switch>
         </Router>
       </Provider>
