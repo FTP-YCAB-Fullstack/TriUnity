@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Login from "../components/Login";
 import Register from "../components/Register";
@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 
 const SignIn = () => {
   const [, setCookies] = useCookies(["token"]);
+  const [label, setLabel] = useState("Login");
 
   const onSubmitLogin = async event => {
     event.preventDefault();
@@ -15,8 +16,8 @@ const SignIn = () => {
         {
           email: event.target.email.value,
           password: event.target.password.value
-        },
-        { withCredentials: true }
+        }
+        // { withCredentials: true }
       )
       .catch(error => error.response);
     if (response && response.status === 200) {
@@ -37,8 +38,8 @@ const SignIn = () => {
           lastName: event.target.lastName.value,
           email: event.target.email.value,
           password: event.target.password.value
-        },
-        { withCredentials: true }
+        }
+        // { withCredentials: true }
       )
       .catch(error => error.response);
     if (response && response.status === 201) {
@@ -50,10 +51,40 @@ const SignIn = () => {
   };
 
   return (
-    <>
-      <Login onSubmitLogin={onSubmitLogin} />
-      <Register onSubmitRegister={onSubmitRegister} />
-    </>
+    <div className="flex h-screen">
+      <img className="w-full" src="" alt="SignIn" />
+      <div className="flex flex-col items-center w-full">
+        <ol className="flex justify-center list-none w-full my-4">
+          <li
+            className="cursor-pointer p-4 w-2/5 text-center rounded-l-full"
+            style={{
+              backgroundColor:
+                label === "Login" ? "rgba(52, 211, 153)" : "rgba(254, 202, 202)"
+            }}
+            onClick={event => setLabel(event.target.innerHTML)}
+          >
+            Login
+          </li>
+          <li
+            className="cursor-pointer p-4 w-2/5 text-center rounded-r-full"
+            style={{
+              backgroundColor:
+                label === "Register"
+                  ? "rgba(52, 211, 153)"
+                  : "rgba(254, 202, 202)"
+            }}
+            onClick={event => setLabel(event.target.innerHTML)}
+          >
+            Register
+          </li>
+        </ol>
+        {label === "Login" ? (
+          <Login onSubmitLogin={onSubmitLogin} />
+        ) : (
+          <Register onSubmitRegister={onSubmitRegister} />
+        )}
+      </div>
+    </div>
   );
 };
 
