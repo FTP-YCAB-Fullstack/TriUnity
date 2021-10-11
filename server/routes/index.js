@@ -1,14 +1,17 @@
 "use strict"
 
-const MainRouter = require('express').Router();
+const mainRouter = require('express').Router();
 
 const FetchRouter = require('./fetchApi');
 const PaymentRouter = require('./payment');
 const signInRouter = require("./signin");
+const authentication = require("../middlewares/authentication");
+const authorization = require("../middlewares/authorization");
 
 
-MainRouter.use(FetchRouter)
-MainRouter.use(signInRouter);
-MainRouter.use(PaymentRouter)
+mainRouter.use(FetchRouter)
+mainRouter.use(signInRouter);
+mainRouter.use(PaymentRouter)
+mainRouter.use(authentication).use(authorization);
 
-module.exports = MainRouter;
+module.exports = mainRouter;
