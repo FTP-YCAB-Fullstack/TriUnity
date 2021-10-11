@@ -4,7 +4,12 @@ function Header() {
     return (
         <div>
             <header>
-                <input placeholder="Search Photo here..."/>
+                <h1>Sell ​​photos without worrying about plagiarism</h1>
+                <form>
+                    <input type="text" placeholder="Search Photo here..."/> 
+                    <input type="submit" value="Search"/>
+                </form>
+                <button>Sell your Photos</button>
             </header>
         </div>
     )

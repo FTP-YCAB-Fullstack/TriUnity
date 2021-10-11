@@ -3,8 +3,10 @@ import React from 'react'
 function CollectionPhotos(props) {
     return (
         <div>
-            <img src={props.tags.image} alt={props.title} className="w-2/3 h-auto"/>
-            <h1>{props.tags.description}</h1>
+            <div className="bg-red-600">
+            <img src={props.tags[0].image} alt={props.title}/>
+            </div>
+            {/* <h1>{props.tags.description}</h1> */}
         </div>
     )
 }

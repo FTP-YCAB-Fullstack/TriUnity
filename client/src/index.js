@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { PublicRoute } from "./components/Routes";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
+import './tailwind.css'
 import store from "./redux/store";
 import SignIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
