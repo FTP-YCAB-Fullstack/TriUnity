@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const Token = require("../models/Token");
 
 class SignIn {
   static async Register(req, res, next) {
@@ -12,6 +14,10 @@ class SignIn {
         password
       });
       const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
+      Token.create({
+        userId: user._id,
+        token
+      });
       res.status(201).json({
         message: "success register",
         token,
@@ -31,10 +37,13 @@ class SignIn {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
-      if (!data || !bcrypt.compareSync(password, data.password)) {
+      if (!user || !bcrypt.compareSync(password, user.password)) {
         next({ code: 401, message: "email or password is wrong" });
       } else {
         const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT_TOKEN);
+        Token.deleteOne({ userId: user._id }).then(() =>
+          Token.create({ userId: user._id, token })
+        );
         res.status(200).json({
           message: "success login",
           token,

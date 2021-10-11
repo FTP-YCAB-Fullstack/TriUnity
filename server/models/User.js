@@ -1,22 +1,7 @@
 const Schema = require("mongoose").Schema;
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const connection = mongoose.createConnection(process.env.DB_URL);
-
-const validateEmail = email => {
-  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return re.test(email);
-};
-
-const validatePassword = password => {
-  const character = /[A-Z]+/.test(password) && /[a-z]+/.test(password);
-  const number = /[0-9]+/.test(password);
-  return character && number;
-};
-
-const validateLengthPassword = password => {
-  return password.length >= 6;
-};
+const connection = require("mongoose").createConnection(process.env.DB_URL);
+const validate = require("../utils/validate");
 
 const User = new Schema(
   {
@@ -32,18 +17,18 @@ const User = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: [validateEmail, "Please fill a valid email address"]
+      validate: [validate.email, "Please fill a valid email address"]
     },
     password: {
       type: String,
       required: true,
       validate: [
         {
-          validator: validateLengthPassword,
+          validator: validate.lengthPassword,
           msg: "Please fill a password min 6 character"
         },
         {
-          validator: validatePassword,
+          validator: validate.password,
           msg: "Password must have numbers, uppercase and lowercase letters"
         }
       ]
