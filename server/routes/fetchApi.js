@@ -47,7 +47,7 @@ FetchApiRouter.get('/collection', async function(req,res) {
                     if(items.source) {
                         return {
                             image_id : items.source.cover_photo.id,
-                            image : items.source.cover_photo.urls.regular,
+                            image : items.source.cover_photo.urls.small,
                             description : items.source.cover_photo.alt_description,
                             user : items.source.cover_photo.user.profile_image.medium
                         }
