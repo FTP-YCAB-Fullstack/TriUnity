@@ -3,6 +3,7 @@ import axios from "axios";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import { useCookies } from "react-cookie";
+import assetSignIn from "../assets/SignIn.jpeg";
 
 const SignIn = () => {
   const [, setCookies] = useCookies(["token"]);
@@ -52,7 +53,7 @@ const SignIn = () => {
 
   return (
     <div className="flex h-screen">
-      <img className="w-full" src="" alt="SignIn" />
+      <img className="w-full" src={assetSignIn} alt="SignIn" />
       <div className="flex flex-col items-center w-full">
         <ol className="flex justify-center list-none w-full my-4">
           <li
