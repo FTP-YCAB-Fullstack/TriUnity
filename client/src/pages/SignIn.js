@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Login from "../components/Login";
 import Register from "../components/Register";
@@ -8,6 +8,11 @@ import assetSignIn from "../assets/SignIn.jpeg";
 const SignIn = () => {
   const [, setCookies] = useCookies(["token"]);
   const [label, setLabel] = useState("Login");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setMessage("");
+  }, [label]);
 
   const onSubmitLogin = async event => {
     event.preventDefault();
@@ -26,6 +31,7 @@ const SignIn = () => {
       setCookies("token", response.data.token, { path: "/" });
     } else {
       console.error(response);
+      setMessage(response.data.message);
     }
   };
 
@@ -48,6 +54,7 @@ const SignIn = () => {
       setCookies("token", response.data.token, { path: "/" });
     } else {
       console.error(response);
+      setMessage(response.data.message);
     }
   };
 
@@ -80,9 +87,9 @@ const SignIn = () => {
           </li>
         </ol>
         {label === "Login" ? (
-          <Login onSubmitLogin={onSubmitLogin} />
+          <Login onSubmitLogin={onSubmitLogin} message={message} />
         ) : (
-          <Register onSubmitRegister={onSubmitRegister} />
+          <Register onSubmitRegister={onSubmitRegister} message={message} />
         )}
       </div>
     </div>
