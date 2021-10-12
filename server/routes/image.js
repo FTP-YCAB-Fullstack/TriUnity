@@ -3,14 +3,12 @@ const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
 const image = multer({
-  dest: "../data/temp"
+  dest:  path.join(__dirname, "../data/temp")
 });
 
 imageRouter.post("/image", image.single("image"), (req, res) => {
   const tempPath = req.file.path;
-  console.log(tempPath);
   const targetPath = path.join(__dirname, "../data/image/image.png");
-  console.log(targetPath);
 
   if (path.extname(req.file.originalname).toLowerCase() === ".png") {
     fs.rename(tempPath, targetPath, err => {
