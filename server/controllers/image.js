@@ -18,7 +18,10 @@ class Image {
         if (err) {
           next(err);
         } else {
-          // ImageForSale.cre
+          ImageForSale.create({
+            userId: req.currentUser._id,
+            image: filename
+          });
           res.status(200).json({
             message: "Image uploaded"
           });
