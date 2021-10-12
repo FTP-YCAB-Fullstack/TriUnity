@@ -2,10 +2,10 @@ import React from 'react'
 
 function RandomPhotos(props) {
     return (
-        <span>
-            <img src={props.url.small} alt="photos" className="rounded-lg"/>
+        <div>
+            <img src={props.url.small} alt="photos" className="rounded-2xl"/>
             <h1>{props.description}</h1>
-        </span>
+        </div>
     )
 }
 

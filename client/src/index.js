@@ -6,9 +6,10 @@ import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import './tailwind.css'
 import store from "./redux/store";
-// import "./style.css";
 import SignIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
+import Keranjang from "./pages/Keranjang";
+import SellPhotos from "./pages/SellPhotos";
 
 const Main = () => {
   return (
@@ -18,6 +19,8 @@ const Main = () => {
           <Switch>
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
             <PublicRoute onlyPublic path="/home" exact component={Homepage} />
+            <PublicRoute onlyPublic path="/keranjang" exact component={Keranjang}/>
+            <PublicRoute onlyPublic path="/sell" exact component={SellPhotos}/>
           </Switch>
         </Router>
       </Provider>
