@@ -12,7 +12,7 @@ const authorization = require("../middlewares/authorization");
 mainRouter.use(FetchRouter);
 mainRouter.use(signInRouter);
 mainRouter.use(PaymentRouter);
-mainRouter.use(imageRouter);
 mainRouter.use(authentication).use(authorization);
+mainRouter.use(imageRouter);
 
 module.exports = mainRouter;

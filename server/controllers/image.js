@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const ImageForSale = require("../models/ImageForSell");
 
 class Image {
   static async uploadImage(req, res, next) {
@@ -17,6 +18,7 @@ class Image {
         if (err) {
           next(err);
         } else {
+          // ImageForSale.cre
           res.status(200).json({
             message: "Image uploaded"
           });
