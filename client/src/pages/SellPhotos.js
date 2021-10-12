@@ -8,6 +8,7 @@ export default function SellPhotos(props) {
     const formData = new FormData();
     const image = event.target.image;
     formData.append("image", image.files[0]);
+    formData.append("filename", image.files[0].name);
     const response = await axios.post("http://localhost:5000/image", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
