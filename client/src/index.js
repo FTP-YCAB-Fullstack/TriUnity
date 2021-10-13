@@ -25,7 +25,7 @@ const Main = () => {
             />
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
             <PublicRoute
-              onlyPublic
+              onlyPublic={false}
               path="/keranjang"
               exact
               component={Keranjang}

@@ -20,7 +20,7 @@ function Navbar(props) {
 
   const onClicktoHome = () => {
     props.history.push({
-      pathname: "/home"
+      pathname: "/"
     });
   };
 
