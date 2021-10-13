@@ -6,6 +6,16 @@ function Sellphotos(props) {
     <div>
       <Navbar />
       <form onSubmit={props.onClickSell}>
+        <input type="text" name="title" placeholder="insert title in here..." />
+        <input
+          type="number"
+          name="price"
+          placeholder="insert price in here..."
+        />
+        <textarea
+          name="description"
+          placeholder="insert description in here..."
+        ></textarea>
         <input type="file" name="image" />
         <button
           type="submit"
