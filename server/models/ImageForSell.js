@@ -5,8 +5,7 @@ const ImageForSell = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      required: true,
-      unique: true
+      required: true
     },
     title: {
       type: String,
