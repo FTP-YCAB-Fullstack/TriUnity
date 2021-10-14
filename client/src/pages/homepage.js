@@ -6,14 +6,16 @@ import axios from "axios"
 import Navbar from '../components/Navbar'
 import Header from '../components/Header'
 import Masonry from 'react-masonry-css'
+import { useCookies } from "react-cookie";
 
 
 function Homepage(props) {
     const [photos, setData] = useState([])
     const [collection, setCollection] = useState([])
+    const [ ,,removeCookies ] = useCookies(["token"])
 
     const getData = () => {
-        axios.get("http://localhost:3500/photos")
+        axios.get("http://localhost:5000/photos")
         .then((response) => response.data)
         .then((json) => {
             console.log(json)
@@ -22,7 +24,7 @@ function Homepage(props) {
     };
 
     const getCollection = () => {
-        axios.get("http://localhost:3500/collection")
+        axios.get("http://localhost:5000/collection")
         .then((response) => response.data)
         .then((json) => {
             console.log(json)
@@ -59,11 +61,21 @@ function Homepage(props) {
         })
     }
 
+    const onClickLogout = () => {
+        removeCookies()
+    }
+
+    const onClicktoDetailFoto = () => {
+        props.history.push("/detailpage")
+    }
+
+
     return (
         <div> 
             <Navbar onClicktoLogin={onClicktoLogin} 
             onClicktoKeranjang={onClicktoKeranjang} 
             onClicktoHome={onClicktoHome}
+            onClickLogout={onClickLogout}
             className="z-50"/>
             <Header onClicktoSellPhotos={onClicktoSellPhotos}/>
             <h1>Collection</h1>
@@ -77,7 +89,7 @@ function Homepage(props) {
                 className="my-masonry-grid mx-12 my-7"
                 columnClassName="my-masonry-grid_column">
             {photos.map((item, index) => {
-                return <RandomPhotos {...item} key={index} />
+                return <RandomPhotos onClicktoDetailFoto={onClicktoDetailFoto} {...item} key={index} />
             })} 
             </Masonry>
         </div>

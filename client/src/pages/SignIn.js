@@ -54,7 +54,7 @@ const SignIn = () => {
       setCookies("token", response.data.token, { path: "/" });
     } else {
       console.error(response);
-      setMessage(response.data.message);
+      // setMessage(response.data.message);
     }
   };
 

@@ -5,7 +5,7 @@ const FetchApiRouter = require('express').Router();
 
 FetchApiRouter.get('/photos', async function(req,res) {
     try {
-        let url = "https://api.unsplash.com/photos/?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s"
+        let url = "https://api.unsplash.com/photos/random?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&count=30"
         const data = await axios({
             method: 'GET',
             url: url
@@ -52,8 +52,6 @@ FetchApiRouter.get('/collection', async function(req,res) {
                             user : items.source.cover_photo.user.profile_image.medium
                         }
                     } return items.source
-                    // console.log(JSON.stringify(items.source.cover_photo.urls))
-                    // return items.source
                 })
                 .filter(function(items) {
                     console.log(items)

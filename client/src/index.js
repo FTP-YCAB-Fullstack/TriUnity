@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
 import Keranjang from "./pages/Keranjang";
 import SellPhotos from "./pages/SellPhotos";
+import DetailPhotos from "./pages/DetailPhotos";
 
 const Main = () => {
   return (
@@ -21,6 +22,7 @@ const Main = () => {
             <PublicRoute onlyPublic path="/home" exact component={Homepage} />
             <PublicRoute onlyPublic path="/keranjang" exact component={Keranjang}/>
             <PublicRoute onlyPublic path="/sell" exact component={SellPhotos}/>
+            <PublicRoute onlyPublic path="/detailpage" exact component={DetailPhotos}/>
           </Switch>
         </Router>
       </Provider>
