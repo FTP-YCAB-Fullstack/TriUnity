@@ -66,4 +66,15 @@ FetchApiRouter.get('/collection', async function(req,res) {
     }
 })
 
+FetchApiRouter.get('/photos/:photosId', async (req, res) => {
+    try {
+        const { id } =  req.body
+        const { photosId } = req.params
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "Internal Server Error"
+        })
+    }
+})
+
 module.exports = FetchApiRouter
