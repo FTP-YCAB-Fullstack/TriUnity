@@ -5,13 +5,23 @@ const ImageForSell = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      required: true,
-      unique: true
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
     },
     image: {
       type: String,
       required: true,
       unique: true
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    description: {
+      type: String
     }
   },
   {
