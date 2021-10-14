@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
+// import Homepage from "../pages/Homepage";
 
 const PublicRoute = ({ onlyPublic, ...rest }) => {
   const [cookies] = useCookies(["token"]);

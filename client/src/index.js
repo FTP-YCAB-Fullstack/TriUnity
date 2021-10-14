@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
 import Keranjang from "./pages/Keranjang";
 import SellPhotos from "./pages/SellPhotos";
+import DetailPhotos from "./pages/DetailPhotos";
 
 const Main = () => {
   return (
@@ -25,6 +26,8 @@ const Main = () => {
               component={Homepage}
             />
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
+            <PublicRoute onlyPublic path="/" exact component={Homepage} />
+            <PublicRoute onlyPublic path="/detailpage" exact component={DetailPhotos}/>
             <PublicRoute
               onlyPublic={false}
               path="/keranjang"

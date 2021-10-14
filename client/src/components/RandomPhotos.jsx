@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 function RandomPhotos(props) {
-    return (
-        <div>
-            <img src={props.url.small} alt="photos" className="rounded-2xl"/>
-            <h1>{props.description}</h1>
-        </div>
-    )
+
+    if(props.url){
+        return (
+            <div onClick={props.onClicktoDetailFoto} className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer">
+                <img src={props.url.small} alt="photos" className="rounded-2xl"/>
+                <h1>{props.description}</h1>
+            </div>
+        )
+    } else {
+        return <Fragment></Fragment>
+    }
+    
 }
 
 export default RandomPhotos
