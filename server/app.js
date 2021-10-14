@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 require("dotenv").config();
 
 const express = require("express");
@@ -7,6 +7,7 @@ const cors = require("cors");
 const mainRouter = require("./routes");
 const handlerError = require("./middlewares/handlerError");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const port = process.env.SERVER_PORT;
 
 const corsConfig = {
@@ -19,6 +20,8 @@ app
   .use(cookieParser())
   .use(express.json())
   .use(express.urlencoded({ extended: false }));
+
+app.use("/image", express.static(path.join(__dirname, "./data/image")));
 
 app.use(mainRouter).use(handlerError);
 
