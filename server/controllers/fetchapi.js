@@ -14,7 +14,7 @@ class FetchApi {
         data.data.map(function(item) {
           return {
             id: item.id,
-            description: item.description,
+            description: item.alt_description,
             url: item.urls,
             user: item.user
           };
@@ -83,13 +83,12 @@ class FetchApi {
       const { data } = await axios.get(
         `https://api.unsplash.com/search/photos/?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&query=${query}&per_page=50`
       );
-      console.log(data);
       res.status(200).json({
         message: "Success geting result search",
         data: data.results.map(item => {
           return {
             id: item.id,
-            description: item.description,
+            description: item.alt_description,
             url: item.urls,
             user: item.user
           };
