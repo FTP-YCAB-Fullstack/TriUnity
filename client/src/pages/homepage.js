@@ -23,7 +23,7 @@ function Homepage(props) {
 
   const getCollection = () => {
     axios
-      .get("http://localhost:5000/collection")
+      .get("http://localhost:5000/collections")
       .then(response => response.data)
       .then(json => {
         console.log(json);
@@ -42,12 +42,18 @@ function Homepage(props) {
     });
   };
 
+  const onClicktoDetailPhotos = (id) => {
+    props.history.push({
+      pathname: `/detailpage/${id}`
+    });
+  };
+
   return (
     <div>
       <Navbar className="z-50" />
       <Header onClicktoSellPhotos={onClicktoSellPhotos} />
       <h1>Collection</h1>
-      <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7">
+      <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7 ml-3">
         {collection.map((item, index) => {
           return item.tags[0] ? (
             <CollectionPhotos {...item} key={index} />
@@ -60,7 +66,7 @@ function Homepage(props) {
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((item, index) => {
-          return <RandomPhotos {...item} key={index} />;
+          return <RandomPhotos onClicktoDetailPhotos={onClicktoDetailPhotos} {...item} key={index} />;
         })}
       </Masonry>
     </div>

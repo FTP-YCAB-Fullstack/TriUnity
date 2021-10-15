@@ -1,6 +1,6 @@
-import axios from "axios"
+const axios = require("axios");
 
-class fetchapi {
+class FetchApiController {
     static getRandom = async (req,res) => {
         try {
             let url = "https://api.unsplash.com/photos/random?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&count=30"
@@ -65,7 +65,27 @@ class fetchapi {
     }
     static getDetailPhoto = async (req, res) => {
         try {
-            const { photosId } = req.params
+            const { id } = req.params
+            const url = `https://api.unsplash.com/photos/${id}?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s`
+            
+            const {data} = await axios({
+                method: "GET",
+                url
+            })
+            
+            res.status(200).json({
+                data: {
+                    id: data.id,
+                    description: data.alt_description,
+                    image: data.urls.full,
+                    user: {
+                        id: data.user.id,
+                        username: data.user.username,
+                        profile_image: data.user.profile_image.medium,
+
+                    }
+                }
+            })
         } catch (error) {
             res.status(500).json({
                 message: error.message || "Internal Server Error"
@@ -73,3 +93,5 @@ class fetchapi {
         }
     }
 }
+
+module.exports = FetchApiController
