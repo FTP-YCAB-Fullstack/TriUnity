@@ -8,5 +8,6 @@ const image = multer({
 });
 
 imageRouter.post("/image", image.single("image"), imageController.uploadImage);
+imageRouter.get("/image/for-sale", imageController.getAllForSale);
 
 module.exports = imageRouter;
