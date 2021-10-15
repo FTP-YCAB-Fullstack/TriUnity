@@ -1,7 +1,6 @@
 import React from 'react'
 
 function DetailPhoto(props) {
-    console.log(props.username)
     return (
         <div className="bg-red-600 h-2xl md:h-screen p-5 flex justify-center items-center">
             <div className="h-full w-4/5 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row">

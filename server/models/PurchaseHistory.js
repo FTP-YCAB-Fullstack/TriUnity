@@ -30,4 +30,4 @@ const PurchaseHistory = new Schema(
   }
 );
 
-module.exports = connection.model("Token", Token);
+module.exports = connection.model("PurchaseHistory", PurchaseHistory);

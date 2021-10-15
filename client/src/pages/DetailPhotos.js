@@ -7,8 +7,8 @@ import RandomPhotos from '../components/RandomPhotos'
 
 function DetailPhotos(props) {
     const [photos, setData] = useState([])
-    const [detailPhotos, setDetailPhotos] = useState([])
     const id = props.match.params.id
+    const [detailPhotos, setDetailPhotos] = useState(id)
 
     const getData = () => {
         console.log('ini get data')
@@ -36,8 +36,11 @@ function DetailPhotos(props) {
 
     useEffect(() => {
         getData()
-        getDetailPhoto()
     },[])
+
+    useEffect(() => {
+        getDetailPhoto()
+    }, [id])
 
     return (
         <div>
