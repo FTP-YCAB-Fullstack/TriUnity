@@ -50,6 +50,21 @@ class Image {
       next(error);
     }
   }
+
+  static async deleteForSale(req, res, next) {
+    try {
+      const { id } = req.params;
+      fs.unlink(path.join(__dirname, `../data/image/${id}`), async err => {
+        if (err) return next(err);
+        await ImageForSale.deleteOne({ image: id });
+        res.status(200).json({
+          message: "Success deleting photos for sale"
+        });
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Image;

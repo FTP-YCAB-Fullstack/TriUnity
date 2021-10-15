@@ -1,5 +1,6 @@
 const handlerError = (err, req, res, next) => {
-  if (err.code && err.code <= 500 && err.message) {
+  console.error(err);
+  if (typeof err.code === "number" && err.code <= 500 && err.message) {
     res.status(err.code).json({
       message: err.message
     });

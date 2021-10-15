@@ -31,7 +31,7 @@ function Profile() {
               </div>
               <div class="flex justify-center px-5  -mt-12">
                 <img
-                  class=" h-36 w-36Renita bg-white p-2 rounded-full"
+                  class=" h-36 w-36 bg-white p-2 rounded-full"
                   src={
                     data.image
                       ? data.image

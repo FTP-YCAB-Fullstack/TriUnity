@@ -4,8 +4,8 @@ import ItemPhotoSale from "../components/ItemPhotoSale";
 import axios from "axios";
 
 const PhotosForSale = props => {
-  const [photos, setPhotos] = useState([]);
-  console.log(photos);
+  const [photos, setPhotos] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const getPhotos = async () => {
     const response = await axios
@@ -20,14 +20,32 @@ const PhotosForSale = props => {
 
   useEffect(() => {
     getPhotos();
-  }, []);
+  }, [refresh]);
+
+  const onClickDeleteSalePhoto = async image => {
+    const response = await axios
+      .delete(`http://localhost:5000/image/for-sale/${image}`, {
+        withCredentials: true
+      })
+      .catch(error => error.response);
+    if (response && response.status === 200) {
+      setRefresh(!refresh);
+    }
+  };
 
   return (
     <>
       <Navbar />
-      {!photos.length
+      {photos === null
+        ? "Loading"
+        : !photos.length
         ? "Not Found Photo for sale"
-        : photos.map((item, index) => <ItemPhotoSale {...item} key={index} />)}
+        : photos.map((item, index) => (
+            <ItemPhotoSale
+              {...{ ...item, onClickDeleteSalePhoto }}
+              key={index}
+            />
+          ))}
     </>
   );
 };
