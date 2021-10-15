@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import imgProfile from "../assets/Renita.jpg"
+import axios from "axios";
 
 function Profile() {
+    const [data, setData] = useState({});
+        console.log(data)
+    const getData = () => {
+        axios
+          .get("http://localhost:5000/profile", {withCredentials : true})
+          .then(response => response.data.data)
+          .then(json => {
+            console.log(json);
+            setData(json);
+          });
+      }
+      useEffect(() => {
+        getData();
+      }, []);
+    
     return (
         <div>
             <div>
@@ -23,9 +39,9 @@ function Profile() {
                 </div>
                     <div class="text-center px-14 mb-12">
                         <h2 class="text-gray-800 text-3xl font-bold">Renita</h2>
-                        <p className="text-start">First Name : Renita</p>
-                        <p className="text-start">Last Name : Nathania</p>
-                        <p className="text-start">Email : renita@gmail.com</p>
+                        <p className="text-start">First Name : {data.firstName}</p>
+                        <p className="text-start">Last Name : {data.lastName}</p>
+                        <p className="text-start">Email : {data.email}</p>
                         <p className="text-start">Address : Jakarta Barat</p>
                         <p className="text-start">Description : I like sleep</p>
                     </div>
