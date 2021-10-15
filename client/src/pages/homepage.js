@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import Header from '../components/Header'
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
