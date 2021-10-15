@@ -37,6 +37,19 @@ class Image {
       next(error);
     }
   }
+
+  static async getAllForSale(req, res, next) {
+    try {
+      const { id: userId } = req.currentUser;
+      const photos = await ImageForSale.find({ userId });
+      res.status(200).json({
+        message: "Success geting photos for sale",
+        photos
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Image;
