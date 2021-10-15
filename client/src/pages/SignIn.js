@@ -17,14 +17,10 @@ const SignIn = () => {
   const onSubmitLogin = async event => {
     event.preventDefault();
     const response = await axios
-      .post(
-        "http://localhost:5000/users/login",
-        {
-          email: event.target.email.value,
-          password: event.target.password.value
-        }
-        // { withCredentials: true }
-      )
+      .post("http://localhost:5000/users/login", {
+        email: event.target.email.value,
+        password: event.target.password.value
+      })
       .catch(error => error.response);
     if (response && response.status === 200) {
       console.log(response.data);
@@ -38,23 +34,17 @@ const SignIn = () => {
   const onSubmitRegister = async event => {
     event.preventDefault();
     const response = await axios
-      .post(
-        "http://localhost:5000/users/register",
-        {
-          firstName: event.target.firstName.value,
-          lastName: event.target.lastName.value,
-          email: event.target.email.value,
-          password: event.target.password.value
-        }
-        // { withCredentials: true }
-      )
+      .post("http://localhost:5000/users/register", {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        password: event.target.password.value
+      })
       .catch(error => error.response);
     if (response && response.status === 201) {
-      console.log(response.data);
       setCookies("token", response.data.token, { path: "/" });
     } else {
-      console.error(response);
-      // setMessage(response.data.message);
+      setMessage(response.data.message);
     }
   };
 

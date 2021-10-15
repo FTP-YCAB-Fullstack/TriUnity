@@ -10,6 +10,8 @@ import Masonry from "react-masonry-css";
 function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+  console.log(searchResult);
 
   const getData = () => {
     axios
@@ -42,10 +44,42 @@ function Homepage(props) {
     });
   };
 
+  const onSubmitSearch = async event => {
+    event.preventDefault();
+    try {
+      const valueSearch = event.target.search.value;
+      const response = await axios.get(
+        `http://localhost:5000/search/photos/?query=${valueSearch}`,
+        { withCredentials: true }
+      );
+      console.log(response);
+      if (response && response.status === 200) {
+        setSearchResult(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Navbar className="z-50" />
-      <Header onClicktoSellPhotos={onClicktoSellPhotos} />
+      <Header
+        onClicktoSellPhotos={onClicktoSellPhotos}
+        onSubmitSearch={onSubmitSearch}
+      />
+      {!searchResult.length ? null : <h1>Searching result..</h1>}
+      {!searchResult.length ? null : (
+        <Masonry
+          breakpointCols={{ default: 5, 800: 2 }}
+          className="my-masonry-grid mx-12 my-7"
+          columnClassName="my-masonry-grid_column"
+        >
+          {searchResult.map((item, index) => {
+            return <RandomPhotos {...item} key={index} />;
+          })}
+        </Masonry>
+      )}
       <h1>Collection</h1>
       <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7">
         {collection.map((item, index) => {
@@ -54,6 +88,7 @@ function Homepage(props) {
           ) : null;
         })}
       </div>
+      <h1>Random Photos</h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"
