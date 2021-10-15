@@ -6,6 +6,7 @@ import axios from "axios";
 const PhotosForSale = props => {
   const [photos, setPhotos] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  console.log(photos);
 
   const getPhotos = async () => {
     const response = await axios
