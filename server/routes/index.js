@@ -8,9 +8,8 @@ const signInRouter = require("./signin");
 const imageRouter = require("./image");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
-const Profile = require("../routes/profile");
+const Profile = require("./profile");
 
-mainRouter.use(Profile);
 mainRouter.use(FetchRouter);
 mainRouter.use(signInRouter);
 mainRouter.use(PaymentRouter);
