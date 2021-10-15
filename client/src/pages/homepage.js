@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 
+// Pembaruan NAMA
+
 function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
