@@ -12,9 +12,14 @@ const Profile = require("../routes/profile");
 
 mainRouter.use(Profile);
 mainRouter.use(FetchRouter);
+<<<<<<< HEAD
+=======
+mainRouter.use(FetchRouter)
+>>>>>>> 42d76d430175fc7df500f86efcc3848401f2e06c
 mainRouter.use(signInRouter);
 mainRouter.use(PaymentRouter);
 mainRouter.use(authentication).use(authorization);
+mainRouter.use(Profile)
 mainRouter.use(imageRouter);
 
 module.exports = mainRouter;

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import "./tailwind.css";
 import store from "./redux/store";
 import SignIn from "./pages/SignIn";
-import Homepage from "./pages/Homepage";
+import Homepage from "./pages/homepage";
 import Keranjang from "./pages/Keranjang";
 import SellPhotos from "./pages/SellPhotos";
 import DetailPhotos from "./pages/DetailPhotos";
