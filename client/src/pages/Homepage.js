@@ -10,7 +10,7 @@ import Masonry from "react-masonry-css";
 function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
-  const [searchResult, setSearchResult] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   console.log(searchResult);
 
   const getData = () => {
@@ -68,8 +68,8 @@ function Homepage(props) {
         onClicktoSellPhotos={onClicktoSellPhotos}
         onSubmitSearch={onSubmitSearch}
       />
-      {searchResult === "" ? null : <h1>Searching result..</h1>}
-      {searchResult === "" ? null : (
+      {!searchResult.length ? null : <h1>Searching result..</h1>}
+      {!searchResult.length ? null : (
         <Masonry
           breakpointCols={{ default: 5, 800: 2 }}
           className="my-masonry-grid mx-12 my-7"
