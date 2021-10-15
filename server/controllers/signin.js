@@ -36,6 +36,9 @@ class SignIn {
   static async Login(req, res, next) {
     try {
       const { email, password } = req.body;
+      if (!email || !password) {
+        next({ code: 422, message: "Required to fill email and password" });
+      }
       const user = await User.findOne({ email });
       if (!user || !bcrypt.compareSync(password, user.password)) {
         next({ code: 401, message: "email or password is wrong" });

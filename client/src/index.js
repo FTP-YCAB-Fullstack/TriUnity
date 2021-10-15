@@ -12,6 +12,7 @@ import Homepage from "./pages/Home";
 import Keranjang from "./pages/Keranjang";
 import SellPhotos from "./pages/SellPhotos";
 import DetailPhotos from "./pages/DetailPhotos";
+import PhotosForSale from "./pages/PhotosForSale";
 
 const Main = () => {
   return (
@@ -27,12 +28,22 @@ const Main = () => {
             />
             <PublicRoute onlyPublic path="/signin" exact component={SignIn} />
             <PublicRoute onlyPublic path="/" exact component={Homepage} />
-            <PublicRoute onlyPublic={false} path="/detailpage/:id" exact component={DetailPhotos}/>
+            <PublicRoute 
+              onlyPublic={false} 
+              path="/detailpage/:id" 
+              exact 
+              component={DetailPhotos}
+              />
             <PublicRoute
               onlyPublic={false}
               path="/keranjang"
               exact
               component={Keranjang}
+            />
+            <PrivateRoute
+              path="/photos-for-sale"
+              exact
+              component={PhotosForSale}
             />
             <PrivateRoute path="/profile" exact component={Profile} />
             <PrivateRoute path="/sell" exact component={SellPhotos} />
