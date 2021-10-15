@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import imgProfile from "../assets/Renita.jpg";
 import axios from "axios";
 
 function Profile() {
@@ -33,7 +32,11 @@ function Profile() {
               <div class="flex justify-center px-5  -mt-12">
                 <img
                   class=" h-36 w-36Renita bg-white p-2 rounded-full"
-                  src={imgProfile}
+                  src={
+                    data.image
+                      ? data.image
+                      : "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+                  }
                   alt=""
                 />
               </div>
