@@ -12,6 +12,7 @@ import Homepage from "./pages/Homepage";
 import Keranjang from "./pages/Keranjang";
 import SellPhotos from "./pages/SellPhotos";
 import DetailPhotos from "./pages/DetailPhotos";
+import PhotosForSale from "./pages/PhotosForSale";
 
 const Main = () => {
   return (
@@ -37,6 +38,11 @@ const Main = () => {
               path="/keranjang"
               exact
               component={Keranjang}
+            />
+            <PrivateRoute
+              path="/photos-for-sale"
+              exact
+              component={PhotosForSale}
             />
             <PrivateRoute path="/profile" exact component={Profile} />
             <PrivateRoute path="/sell" exact component={SellPhotos} />
