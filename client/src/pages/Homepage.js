@@ -42,10 +42,27 @@ function Homepage(props) {
     });
   };
 
+  const onSubmitSearch = async event => {
+    event.preventDefault();
+    try {
+      const valueSearch = event.target.search.value;
+      const response = await axios.get(
+        `http://localhost:5000/search/photos/?query=${valueSearch}`,
+        { withCredentials: true }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <Navbar className="z-50" />
-      <Header onClicktoSellPhotos={onClicktoSellPhotos} />
+      <Header
+        onClicktoSellPhotos={onClicktoSellPhotos}
+        onSubmitSearch={onSubmitSearch}
+      />
       <h1>Collection</h1>
       <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7">
         {collection.map((item, index) => {
@@ -54,6 +71,7 @@ function Homepage(props) {
           ) : null;
         })}
       </div>
+      <h1>Random Photos</h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"
