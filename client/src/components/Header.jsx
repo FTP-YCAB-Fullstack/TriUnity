@@ -1,9 +1,10 @@
 import React from "react";
+import background from "../assets/background.png";
 
 function Header(props) {
   return (
-    <div>
-      <header className="w-full h-screen bg-yellow-300 flex flex-col justify-center items-center">
+    <header>
+      <div className="w-full h-screen bg-yellow-400 flex flex-col justify-center items-center">
         <h1 className="text-4xl text-center w-2/5">
           Sell ​​photos without worrying about plagiarism
         </h1>
@@ -29,8 +30,8 @@ function Header(props) {
         >
           Sell your Photos
         </button>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 
