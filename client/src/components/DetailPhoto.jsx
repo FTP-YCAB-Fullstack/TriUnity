@@ -17,7 +17,7 @@ function DetailPhoto(props) {
                             <h1 className="mb-3">AESTHETIC PHOTO</h1>
                             <div className="flex flex-row items-center gap-2">
                                 <div className="h-12 w-12 rounded-full bg-gray-400 overflow-hidden">
-                                    <img src={props.data === undefined ? "" : props.data.user.profile_image}/>
+                                    <img src={props.data === undefined ? "" : props.data.user.profile_image} alt="user"/>
                                 </div>
                                 <h1>{props.data === undefined ? "" : props.data.user.username}</h1>
                             </div>
