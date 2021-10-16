@@ -23,10 +23,8 @@ const SignIn = () => {
       })
       .catch(error => error.response);
     if (response && response.status === 200) {
-      console.log(response.data);
       setCookies("token", response.data.token, { path: "/" });
     } else {
-      console.error(response);
       setMessage(response.data.message);
     }
   };

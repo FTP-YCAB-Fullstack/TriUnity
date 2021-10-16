@@ -1,7 +1,6 @@
 import React from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
-import Keranjang from "../assets/keranjang.png";
 import { withRouter } from "react-router-dom";
 
 function Navbar(props) {
@@ -10,12 +9,6 @@ function Navbar(props) {
   const onClicktoLogin = () => {
     props.history.push({
       pathname: "/signin"
-    });
-  };
-
-  const onClicktoKeranjang = () => {
-    props.history.push({
-      pathname: "/keranjang"
     });
   };
 
@@ -45,12 +38,6 @@ function Navbar(props) {
           onClick={onClicktoHome}
         />
         <div className="flex flex-row gap-2">
-          <img
-            src={Keranjang}
-            alt="Masukkan kedalam keranjang"
-            className="cursor-pointer"
-            onClick={onClicktoKeranjang}
-          />
           {cookies.token ? (
             <button
               className="px-4 text-white"
