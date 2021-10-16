@@ -12,14 +12,12 @@ function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
-  console.log(searchResult);
 
   const getData = () => {
     axios
       .get("http://localhost:5000/photos")
       .then(response => response.data)
       .then(json => {
-        console.log(json);
         setData(json);
       });
   };
@@ -29,7 +27,6 @@ function Homepage(props) {
       .get("http://localhost:5000/collections")
       .then(response => response.data)
       .then(json => {
-        console.log(json);
         setCollection(json);
       });
   };
@@ -45,12 +42,12 @@ function Homepage(props) {
     });
   };
 
-  const onClicktoDetailPhotos = (id) => {
+  const onClicktoDetailPhotos = id => {
     props.history.push({
       pathname: `/detailpage/${id}`
     });
   };
-  
+
   const onSubmitSearch = async event => {
     event.preventDefault();
     try {
@@ -59,7 +56,6 @@ function Homepage(props) {
         `http://localhost:5000/search/photos/?query=${valueSearch}`,
         { withCredentials: true }
       );
-      console.log(response);
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
       }
@@ -83,7 +79,13 @@ function Homepage(props) {
           columnClassName="my-masonry-grid_column"
         >
           {searchResult.map((item, index) => {
-            return <RandomPhotos {...item} key={index} />;
+            return (
+              <RandomPhotos
+                onClicktoDetailPhotos={onClicktoDetailPhotos}
+                {...item}
+                key={index}
+              />
+            );
           })}
         </Masonry>
       )}
@@ -102,7 +104,13 @@ function Homepage(props) {
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((item, index) => {
-          return <RandomPhotos onClicktoDetailPhotos={onClicktoDetailPhotos} {...item} key={index} />;
+          return (
+            <RandomPhotos
+              onClicktoDetailPhotos={onClicktoDetailPhotos}
+              {...item}
+              key={index}
+            />
+          );
         })}
       </Masonry>
     </div>
