@@ -16,7 +16,7 @@ const authentication = async (req, res, next) => {
       token: req.cookies.token
     });
     if (isTokenActive) {
-      req.currentUser = await User.findOne({ id: user.id });
+      req.currentUser = await User.findOne({ _id: user.id });
       next();
     } else {
       next({ code: 403, message: "Inactive token" });
