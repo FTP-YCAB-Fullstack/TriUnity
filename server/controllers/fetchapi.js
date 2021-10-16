@@ -83,20 +83,22 @@ class FetchApiController {
             image: data.urls.full,
             user: {
               id: data.user.id,
-              username: data.user.username,
-              profile_image: data.user.profile_image.medium
+              fullName: data.user.username,
+              image: data.user.profile_image.medium
             }
           }
         });
       } else if (id[0] === "u") {
         const data = await ImageForSale.findById(ObjectId(id.slice(2)));
-        console.log(data);
         res.status(200).json({
           message: "Success geting photo from local",
           data: {
             id: data.id,
             description: data.description,
-            image: data.image
+            image: "http://localhost:5000/image/" + data.image,
+            price: "Rp. " + data.price,
+            title: data.title,
+            user: data.user
           }
         });
       } else {
