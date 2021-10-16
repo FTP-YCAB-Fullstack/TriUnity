@@ -22,7 +22,6 @@ app
   .use(express.urlencoded({ extended: false }));
 
 app.use("/image", express.static(path.join(__dirname, "./data/image")));
-
 app.use(mainRouter).use(handlerError);
 
 app.listen(port, () => console.log(`Running server on port ${port}`));

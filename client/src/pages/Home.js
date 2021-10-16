@@ -90,7 +90,9 @@ function Homepage(props) {
         </Masonry>
       )}
       <h1>Collection</h1>
-      <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7 ml-3">
+      <div
+        style={{overflowX: "auto", overflowY: "hidden"}}
+       className="grid grid-rows-1 grid-flow-col gap-4 mt-7 ml-3">
         {collection.map((item, index) => {
           return item.tags[0] ? (
             <CollectionPhotos {...item} key={index} />
