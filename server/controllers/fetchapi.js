@@ -1,31 +1,30 @@
 const axios = require("axios");
 
-class FetchApi {
-  static getRandom = async function(req, res) {
+class FetchApiController {
+  static getRandom = async (req,res) => {
     try {
-      let url =
-        "https://api.unsplash.com/photos/random?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&count=30";
-      const data = await axios({
-        method: "GET",
-        url: url
-      });
+        let url = "https://api.unsplash.com/photos/random?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&count=30"
+        const data = await axios({
+            method: 'GET',
+            url: url
+        });
+        // console.log(url)
 
-      res.send(
-        data.data.map(function(item) {
-          return {
-            id: item.id,
-            description: item.alt_description,
-            url: item.urls,
-            user: item.user
-          };
-        })
-      );
+        res.send(data.data.map(function 
+            (item) {
+            return {
+                id : item.id,
+                description : item.alt_description,
+                url : item.urls,
+                user : item.user
+            }
+        }))
     } catch (error) {
-      res.status(500).json({
-        message: error.message || "internal server error"
-      });
+        res.status(500).json({
+            message: error.message || "internal server error"
+        })
     }
-  };
+  }
 
   static getCollection = async function(req, res) {
     try {
@@ -64,40 +63,58 @@ class FetchApi {
         message: error.message || "internal server error"
       });
     }
-  };
+  }
+    static getDetailPhoto = async (req, res) => {
+        try {
+            const { id } = req.params
+            const url = `https://api.unsplash.com/photos/${id}?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s`
+            
+            const {data} = await axios({
+                method: "GET",
+                url
+            })
+            
+            res.status(200).json({
+                data: {
+                    id: data.id,
+                    description: data.alt_description,
+                    image: data.urls.full,
+                    user: {
+                        id: data.user.id,
+                        username: data.user.username,
+                        profile_image: data.user.profile_image.medium,
 
-  static getDetailPhoto = async (req, res) => {
-    try {
-      const { id } = req.body;
-      const { photosId } = req.params;
-    } catch (error) {
-      res.status(500).json({
-        message: error.message || "Internal Server Error"
-      });
+                    }
+                }
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: error.message || "Internal Server Error"
+            })
+        }
     }
-  };
 
-  static getSearch = async (req, res, next) => {
-    try {
-      const { query } = req.query;
-      const { data } = await axios.get(
-        `https://api.unsplash.com/search/photos/?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&query=${query}&per_page=50`
-      );
-      res.status(200).json({
-        message: "Success geting result search",
-        data: data.results.map(item => {
-          return {
-            id: item.id,
-            description: item.alt_description,
-            url: item.urls,
-            user: item.user
-          };
-        })
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
+    static getSearch = async (req, res, next) => {
+      try {
+        const { query } = req.query;
+        const { data } = await axios.get(
+          `https://api.unsplash.com/search/photos/?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&query=${query}&per_page=50`
+        );
+        res.status(200).json({
+          message: "Success geting result search",
+          data: data.results.map(item => {
+            return {
+              id: item.id,
+              description: item.alt_description,
+              url: item.urls,
+              user: item.user
+            };
+          })
+        });
+      } catch (error) {
+        next(error);
+      }
+    };
 }
 
-module.exports = FetchApi;
+module.exports = FetchApiController
