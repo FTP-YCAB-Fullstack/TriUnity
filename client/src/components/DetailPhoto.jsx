@@ -2,7 +2,7 @@ import React from 'react'
 
 function DetailPhoto(props) {
     return (
-        <div className="bg-red-600 h-2xl md:h-screen p-5 flex justify-center items-center">
+        <div className="filter h-2xl md:h-screen p-5 flex justify-center items-center drop-shadow-2xl">
             <div className="h-full w-4/5 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row">
                 <div className="w-full h-full flex items-center bg-yellow-600">
                     <img src={props.data === undefined ? "" : props.data.image} alt="foto gue" className="w-full rounded-bl-3xl"/>

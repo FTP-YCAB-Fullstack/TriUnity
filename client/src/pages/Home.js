@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
-import Navbar from "../components/Navbar";
+import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
-
-// Pembaruan NAMA
+import HorizontalScroll from "react-scroll-horizontal"
 
 function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
-  console.log(searchResult);
 
   const getData = () => {
     axios
@@ -26,7 +24,7 @@ function Homepage(props) {
 
   const getCollection = () => {
     axios
-      .get("http://localhost:5000/collections")
+      .get("http://localhost:5000/collection")
       .then(response => response.data)
       .then(json => {
         console.log(json);
@@ -70,7 +68,7 @@ function Homepage(props) {
 
   return (
     <div>
-      <Navbar className="z-50" />
+      <NavbarHome className="z-50" />
       <Header
         onClicktoSellPhotos={onClicktoSellPhotos}
         onSubmitSearch={onSubmitSearch}
@@ -88,12 +86,12 @@ function Homepage(props) {
         </Masonry>
       )}
       <h1>Collection</h1>
-      <div className="grid grid-rows-1 grid-flow-col gap-4 mt-7 ml-3">
-        {collection.map((item, index) => {
-          return item.tags[0] ? (
-            <CollectionPhotos {...item} key={index} />
-          ) : null;
-        })}
+      <div className="grid grid-rows-1 grid-flow-col overflow-x-hidden gap-4 mt-7 ml-3">
+          {collection.map((item, index) => {
+            return item.tags[0] ? (
+                <CollectionPhotos {...item} key={index} />
+                ) : null;
+              })}
       </div>
       <h1>Random Photos</h1>
       <Masonry
