@@ -79,7 +79,7 @@ class FetchApiController {
           message: "Success geting detail photo from API",
           data: {
             id: data.id,
-            description: data.description,
+            description: data.alt_description,
             image: data.urls.full,
             user: {
               id: data.user.id,
@@ -98,7 +98,8 @@ class FetchApiController {
             image: "http://localhost:5000/image/" + data.image,
             price: "Rp. " + data.price,
             title: data.title,
-            user: data.user
+            user: data.user,
+            download: `http://localhost:5000/image/download/${data.image}`
           }
         });
       } else {

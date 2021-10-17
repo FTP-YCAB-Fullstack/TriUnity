@@ -9,7 +9,6 @@ const handlerError = require("./middlewares/handlerError");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const port = process.env.SERVER_PORT;
-
 const corsConfig = {
   credentials: true,
   origin: process.env.ORIGIN
@@ -22,6 +21,7 @@ app
   .use(express.urlencoded({ extended: false }));
 
 app.use("/image", express.static(path.join(__dirname, "./data/image")));
+
 app.use(mainRouter).use(handlerError);
 
 app.listen(port, () => console.log(`Running server on port ${port}`));
