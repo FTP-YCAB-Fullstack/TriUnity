@@ -1,12 +1,18 @@
 const Schema = require("mongoose").Schema;
 const connection = require("mongoose").createConnection(process.env.DB_URL);
 
+const User = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    require: true
+  },
+  fullName: String,
+  image: String
+});
+
 const ImageForSell = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      required: true
-    },
+    user: User,
     title: {
       type: String,
       required: true
