@@ -25,7 +25,7 @@ function Homepage(props) {
 
   const getCollection = () => {
     axios
-      .get("http://localhost:5000/collection")
+      .get("http://localhost:5000/collections")
       .then(response => response.data)
       .then(json => {
         setCollection(json);
