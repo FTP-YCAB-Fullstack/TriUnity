@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
-import Keranjang from "../assets/keranjang.png";
 import { withRouter } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react"
+import Keranjang from "../assets/keranjang.png"
 
 
 function Navbar(props) {

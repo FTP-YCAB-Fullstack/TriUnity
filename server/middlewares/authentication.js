@@ -5,7 +5,7 @@ const User = require("../models/User");
 const authentication = async (req, res, next) => {
   try {
     if (!req.cookies.token) {
-      next({
+      return next({
         code: 400,
         message: "Token is required to access this resource"
       });
@@ -17,9 +17,9 @@ const authentication = async (req, res, next) => {
     });
     if (isTokenActive) {
       req.currentUser = await User.findOne({ _id: user.id });
-      next();
+      return next();
     } else {
-      next({ code: 403, message: "Inactive token" });
+      return next({ code: 403, message: "Inactive token" });
     }
   } catch (error) {
     next(error);

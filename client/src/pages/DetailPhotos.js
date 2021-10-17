@@ -1,61 +1,96 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import DetailPhoto from '../components/DetailPhoto'
-import Navbar from '../components/Navbar'
-import Masonry from 'react-masonry-css'
-import RandomPhotos from '../components/RandomPhotos'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import DetailPhoto from "../components/DetailPhoto";
+import Navbar from "../components/Navbar";
+import Masonry from "react-masonry-css";
+import RandomPhotos from "../components/RandomPhotos";
 
 function DetailPhotos(props) {
-    const [photos, setData] = useState([])
-    const id = props.match.params.id
-    const [detailPhotos, setDetailPhotos] = useState(id)
+  const [photos, setData] = useState([]);
+  const id = props.match.params.id;
+  const [detailPhotos, setDetailPhotos] = useState(id);
+  const [isLoading, setLoading] = useState(true);
 
-    const getData = () => {
-        console.log('ini get data')
-        axios.get(`http://localhost:5000/photos`)
-        .then((response) => response.data)
-        .then((json) => {
-            setData(json)
-        })
-    };
+  const getDownloadFromApi = async () => {
+    const { data } = await axios.get(
+      detailPhotos.data.download +
+        "?client_id=qN-U_v7VlbUf0Yb_91yXwDtXhPgtf3j9LDrzQsWvAww"
+    );
+    const response = await axios.get(data.url, { responseType: "blob" });
+    const url = URL.createObjectURL(new Blob([response.data]));
+    detailPhotos.data.download = url;
+    console.log(url);
+    setLoading(false);
+  };
 
-    const getDetailPhoto = () => {
-        console.log('ini get data')
-        axios.get(`http://localhost:5000/detailpage/${id}`)
-        .then((response) => response.data)
-        .then((json) => {
-            setDetailPhotos(json)
-        })
-    };
+  const getData = async () => {
+    axios
+      .get(`http://localhost:5000/photos`)
+      .then(response => response.data)
+      .then(json => {
+        setData(json);
+      });
+  };
 
-    const onClicktoDetailPhotos = (id) => {
-        props.history.push({
-          pathname: `/detailpage/${id}`
-        });
-    };
+  const getDetailPhoto = async () => {
+    await axios
+      .get(`http://localhost:5000/detailpage/${id}`)
+      .then(response => response.data)
+      .then(json => {
+        setDetailPhotos(json);
+      });
+  };
 
-    useEffect(() => {
-        getData()
-    },[])
+  const onClicktoDetailPhotos = id => {
+    props.history.push({
+      pathname: `/detailpage/${id}`
+    });
+  };
 
-    useEffect(() => {
-        getDetailPhoto()
-    }, [id])
+  useEffect(() => {
+    getData();
+  }, []);
 
-    return (
-        <div>
-            <Navbar />
-            <DetailPhoto {...detailPhotos}/>
-            <Masonry 
-                breakpointCols={{default: 5, 800: 2}}
-                className="my-masonry-grid mx-12 my-7"
-                columnClassName="my-masonry-grid_column">
-            {photos.map((item, index) => {
-                return <RandomPhotos onClicktoDetailPhotos={onClicktoDetailPhotos} {...item} key={index} />
-            })} 
-            </Masonry>
-        </div>
-    )
+  useEffect(() => {
+    getDetailPhoto();
+  }, [id]);
+
+  useEffect(() => {
+    if (detailPhotos.data) {
+      setLoading(true);
+      if (id[0] === "a") {
+        getDownloadFromApi();
+      } else {
+        if (isLoading) {
+          setLoading(false);
+        }
+      }
+    }
+  }, [detailPhotos]);
+
+  return isLoading ? (
+    "loading"
+  ) : (
+    <div>
+      <Navbar />
+      <DetailPhoto {...{ ...detailPhotos, id }} />
+      <Masonry
+        breakpointCols={{ default: 5, 800: 2 }}
+        className="my-masonry-grid mx-12 my-7"
+        columnClassName="my-masonry-grid_column"
+      >
+        {photos.map((item, index) => {
+          return (
+            <RandomPhotos
+              onClicktoDetailPhotos={onClicktoDetailPhotos}
+              {...item}
+              key={index}
+            />
+          );
+        })}
+      </Masonry>
+    </div>
+  );
 }
 
-export default DetailPhotos
+export default DetailPhotos;

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const ImageForSale = require("../models/ImageForSell");
+const axios = require("axios");
 
 class Image {
   static async uploadImage(req, res, next) {
@@ -9,6 +10,7 @@ class Image {
       const filename = `${Date.now()}-${req.body.filename}`;
       const { title, price, description } = req.body;
       const targetPath = path.join(__dirname, `../data/image/${filename}`);
+      const { _id, firstName, lastName, image } = req.currentUser;
 
       if (!path.extname(req.file.originalname).toLowerCase() === ".png") {
         next({ code: 403, message: "Only .png files are allowed!" });
@@ -21,7 +23,11 @@ class Image {
             next(err);
           } else {
             ImageForSale.create({
-              userId: req.currentUser._id,
+              user: {
+                _id,
+                fullName: firstName + " " + lastName,
+                image
+              },
               image: filename,
               title,
               price,
@@ -41,7 +47,7 @@ class Image {
   static async getAllForSale(req, res, next) {
     try {
       const { id: userId } = req.currentUser;
-      const photos = await ImageForSale.find({ userId });
+      const photos = await ImageForSale.find({ "user.id": userId });
       res.status(200).json({
         message: "Success geting photos for sale",
         photos
@@ -61,6 +67,17 @@ class Image {
           message: "Success deleting photos for sale"
         });
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static downloadPhoto(req, res, next) {
+    try {
+      const { id } = req.params;
+      res.download(path.join(__dirname, `../data/image/${id}`), err =>
+        console.log(err)
+      );
     } catch (error) {
       next(error);
     }

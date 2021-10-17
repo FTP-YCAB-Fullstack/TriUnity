@@ -11,13 +11,14 @@ function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [localPhotos, setLocalPhotos] = useState([]);
+  console.log(localPhotos);
 
   const getData = () => {
     axios
       .get("http://localhost:5000/photos")
       .then(response => response.data)
       .then(json => {
-        console.log(json);
         setData(json);
       });
   };
@@ -27,14 +28,23 @@ function Homepage(props) {
       .get("http://localhost:5000/collection")
       .then(response => response.data)
       .then(json => {
-        console.log(json);
         setCollection(json);
+      });
+  };
+
+  const getPhotosLocal = () => {
+    axios
+      .get("http://localhost:5000/photos/local")
+      .then(response => response.data.data)
+      .then(json => {
+        setLocalPhotos(json);
       });
   };
 
   useEffect(() => {
     getData();
     getCollection();
+    getPhotosLocal();
   }, []);
 
   const onClicktoSellPhotos = () => {
@@ -43,12 +53,12 @@ function Homepage(props) {
     });
   };
 
-  const onClicktoDetailPhotos = (id) => {
+  const onClicktoDetailPhotos = id => {
     props.history.push({
       pathname: `/detailpage/${id}`
     });
   };
-  
+
   const onSubmitSearch = async event => {
     event.preventDefault();
     try {
@@ -57,7 +67,6 @@ function Homepage(props) {
         `http://localhost:5000/search/photos/?query=${valueSearch}`,
         { withCredentials: true }
       );
-      console.log(response);
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
       }
@@ -81,18 +90,43 @@ function Homepage(props) {
           columnClassName="my-masonry-grid_column"
         >
           {searchResult.map((item, index) => {
-            return <RandomPhotos {...item} key={index} />;
+            return (
+              <RandomPhotos
+                onClicktoDetailPhotos={onClicktoDetailPhotos}
+                {...item}
+                key={index}
+              />
+            );
           })}
         </Masonry>
       )}
       <h1>Collection</h1>
-      <div className="grid grid-rows-1 grid-flow-col overflow-x-hidden gap-4 mt-7 ml-3">
-          {collection.map((item, index) => {
-            return item.tags[0] ? (
-                <CollectionPhotos {...item} key={index} />
-                ) : null;
-              })}
+      <div
+        style={{ overflowX: "auto", overflowY: "hidden" }}
+        className="grid grid-rows-1 grid-flow-col gap-4 mt-7 ml-3"
+      >
+        {collection.map((item, index) => {
+          return item.tags[0] ? (
+            <CollectionPhotos {...item} key={index} />
+          ) : null;
+        })}
       </div>
+      <h1>From Another User</h1>
+      <Masonry
+        breakpointCols={{ default: 5, 800: 2 }}
+        className="my-masonry-grid mx-12 my-7"
+        columnClassName="my-masonry-grid_column"
+      >
+        {localPhotos.map((item, index) => {
+          return (
+            <RandomPhotos
+              onClicktoDetailPhotos={onClicktoDetailPhotos}
+              {...item}
+              key={index}
+            />
+          );
+        })}
+      </Masonry>
       <h1>Random Photos</h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
@@ -100,7 +134,13 @@ function Homepage(props) {
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((item, index) => {
-          return <RandomPhotos onClicktoDetailPhotos={onClicktoDetailPhotos} {...item} key={index} />;
+          return (
+            <RandomPhotos
+              onClicktoDetailPhotos={onClicktoDetailPhotos}
+              {...item}
+              key={index}
+            />
+          );
         })}
       </Masonry>
     </div>
