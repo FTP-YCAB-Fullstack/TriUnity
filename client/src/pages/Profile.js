@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Profilecomponent from "../components/Profile";
 
 function Profile() {
   const [data, setData] = useState({});
-  console.log(data);
+    console.log(data);
   const getData = () => {
     axios
       .get("http://localhost:5000/profile", { withCredentials: true })
@@ -12,10 +13,39 @@ function Profile() {
         setData(json);
       });
   };
+
+//   const patchData = () => {
+//     axios
+//       .patch("http://localhost:5000/profile", {withCredentials: true})
+//       .then(response => response.data)
+//       .then(json => {
+//         console.log(json);
+//         setData(json);
+//       });
+//   };
   useEffect(() => {
     getData();
   }, []);
 
+//   const onClicktoProfileController = () => {
+//     props.history.push({
+//       pathname: "/profile"
+//     });
+//   };
+
+const onSubmitUpdate = (event) => {
+    event.preventDefault()
+    axios
+    .patch("http://localhost:5000/profile",{firstName:event.target.firstName.value, lastName:event.target.lastName.value, email:event.target.email.value, address:event.target.address.value, description:event.target.description.value},{ withCredentials: true })
+    .then(response => response.data.data)
+    .then(json => {
+      setData(json);
+    });
+};
+ const editProfile = (_id) =>{
+console.log(_id,"edit")
+ }
+ 
   return (
     <div>
       <div>
@@ -43,13 +73,13 @@ function Profile() {
               <div class=" ">
                 <div className="flex flex-row justify-end align-end">
                   <header className="mr-4">
-                    <span>
+                    <span onClick={ editProfile(data._id) }>
                       <i class="fas fa-pencil-alt"></i>
                     </span>
                   </header>
                 </div>
-                <div class="text-center px-14 mb-12">
-                  {/* <h2 class="text-gray-800 text-3xl font-bold">Renita</h2> */}
+                <Profilecomponent onSubmitUpdate = {onSubmitUpdate} {...data}/>
+                {/* <div class="text-center px-14 mb-12">
                   <p className="text-start">
                     First Name : {data.firstName ? data.firstName : ""}
                   </p>
@@ -65,7 +95,7 @@ function Profile() {
                   <p className="text-start">
                     Description : {data.description ? data.description : ""}
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

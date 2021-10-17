@@ -36,7 +36,7 @@ const User = new Schema(
     address: {
       type: String
     },
-    desciption: {
+    description: {
       type: String
     },
     image: {
