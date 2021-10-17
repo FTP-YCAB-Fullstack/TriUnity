@@ -45,7 +45,7 @@ function DetailPhotos(props) {
   return (
     <div>
       <Navbar />
-      <DetailPhoto {...detailPhotos} />
+      <DetailPhoto {...{ ...detailPhotos, id }} />
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"

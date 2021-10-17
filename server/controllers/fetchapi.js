@@ -81,6 +81,7 @@ class FetchApiController {
             id: data.id,
             description: data.alt_description,
             image: data.urls.full,
+            download: data.links.download_location,
             user: {
               id: data.user.id,
               fullName: data.user.username,

@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 function DetailPhoto(props) {
-  console.log(props);
-  return (
+  const [isLoading, setLoading] = useState(true);
+
+  const getDownloadFromApi = async () => {
+    if (props.data !== undefined) {
+      const { data } = await axios.get(
+        props.data.download +
+          "?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s"
+      );
+      const response = await axios.get(data.url, { responseType: "blob" });
+      const url = URL.createObjectURL(new Blob([response.data]));
+      props.data.download = url;
+      setLoading(false);
+    }
+  };
+
+  if (props.id[0] === "a") {
+    getDownloadFromApi();
+  } else {
+    if (props.data) {
+      setLoading(false);
+    }
+  }
+  return isLoading ? (
+    "Loading"
+  ) : (
     <div className="bg-red-600 h-2xl md:h-screen p-5 flex justify-center items-center">
       <div className="h-full w-4/5 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row">
         <div className="w-full h-full flex items-center bg-yellow-600">
@@ -53,18 +77,12 @@ function DetailPhoto(props) {
             </div>
 
             <div className="flex justify-end">
-              <button
-                // onClick={() =>
-                //   props.onClickDownloadPhoto(
-                //     props.data === undefined ? "" : props.data.image
-                //   )
-                // }
-                className="bg-red-600 py-2 px-8 rounded-full"
-              >
+              <button className="bg-red-600 py-2 px-8 rounded-full">
                 <a
                   href={`${
                     props.data === undefined ? "#" : props.data.download
                   }`}
+                  download="photo.png"
                 >
                   Buy
                 </a>

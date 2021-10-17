@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const ImageForSale = require("../models/ImageForSell");
+const axios = require("axios");
 
 class Image {
   static async uploadImage(req, res, next) {
