@@ -3,7 +3,7 @@ import React from "react";
 
 const Profile = (props) => {
     return(
-        <form onSubmit= { (even) => props.onSubmitUpdate(even,props.firstName, props.lastName, props.email )}>
+        <form onSubmit= { (even) => props.onSubmitUpdate(even)}>
             <input type="text" name="firstName" placeholder={props.firstName ? props.firstName : ""}/>
             <input type="text" name="lastName" placeholder={props.lastName ? props.lastName : ""}/>
             <input type="text" name="email" placeholder={props.email ? props.email : ""}/>
@@ -13,4 +13,5 @@ const Profile = (props) => {
         </form>
     )
 } 
+
 export default Profile

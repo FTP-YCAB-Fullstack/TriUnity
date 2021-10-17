@@ -33,16 +33,19 @@ function Profile() {
 //     });
 //   };
 
-const onSubmitUpdate = (event,firstName, lastName, email) => {
+const onSubmitUpdate = (event) => {
     event.preventDefault()
     axios
-    .patch("http://localhost:5000/profile",{firstName, lastName, email},{ withCredentials: true })
+    .patch("http://localhost:5000/profile",{firstName:event.target.firstName.value, lastName:event.target.lastName.value, email:event.target.email.value, address:event.target.address.value, description:event.target.description.value},{ withCredentials: true })
     .then(response => response.data.data)
     .then(json => {
       setData(json);
     });
 };
-
+ const editProfile = (_id) =>{
+console.log(_id,"edit")
+ }
+ 
   return (
     <div>
       <div>
@@ -70,7 +73,7 @@ const onSubmitUpdate = (event,firstName, lastName, email) => {
               <div class=" ">
                 <div className="flex flex-row justify-end align-end">
                   <header className="mr-4">
-                    <span>
+                    <span onClick={ editProfile(data._id) }>
                       <i class="fas fa-pencil-alt"></i>
                     </span>
                   </header>

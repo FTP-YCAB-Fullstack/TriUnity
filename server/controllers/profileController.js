@@ -14,13 +14,15 @@ class Profile {
   }
   static async patchProfile(req, res, next) {
     try {
-      const { firstName, lastName, email } = req.body;
+      const { firstName, lastName, email,address,description } = req.body;
       const _id = req.currentUser._id
         console.log(req.currentUser)
       const data = await User.updateMany({_id},{$set:{
         firstName,
         lastName,
-        email
+        email,
+        address,
+        description
       }
       });
       console.log(data)
