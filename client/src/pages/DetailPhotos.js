@@ -8,7 +8,7 @@ import RandomPhotos from "../components/RandomPhotos";
 function DetailPhotos(props) {
   const [photos, setData] = useState([]);
   const id = props.match.params.id;
-  const [detailPhotos, setDetailPhotos] = useState(id);
+  const [detailPhotos, setDetailPhotos] = useState();
 
   const getData = () => {
     axios
@@ -40,7 +40,7 @@ function DetailPhotos(props) {
 
   useEffect(() => {
     getDetailPhoto();
-  }, [id]);
+  }, []);
 
   return (
     <div>

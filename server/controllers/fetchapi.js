@@ -17,7 +17,7 @@ class FetchApiController {
           return {
             id: "a-" + item.id,
             description: item.alt_description,
-            url: item.urls,
+            url: item.urls.small,
             user: item.user
           };
         })
@@ -123,7 +123,27 @@ class FetchApiController {
           return {
             id: item.id,
             description: item.alt_description,
-            url: item.urls,
+            url: item.urls.small,
+            user: item.user
+          };
+        })
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static getAllImage = async (req, res, next) => {
+    try {
+      const images = await ImageForSale.find();
+      console.log(images);
+      res.status(200).json({
+        message: "Success geting all image local",
+        data: images.map(item => {
+          return {
+            id: "u-" + item._id,
+            description: item.description,
+            url: "http://localhost:5000/image/" + item.image,
             user: item.user
           };
         })

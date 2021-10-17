@@ -72,20 +72,16 @@ class Image {
     }
   }
 
-  static downloadPhoto = (req, res, next) => {
+  static downloadPhoto(req, res, next) {
     try {
       const { id } = req.params;
       res.download(path.join(__dirname, `../data/image/${id}`), err =>
         console.log(err)
       );
-      // res.attachment(link);
-      // res.status(200).json({
-      //   message: "Success download photo"
-      // });
     } catch (error) {
       next(error);
     }
-  };
+  }
 }
 
 module.exports = Image;

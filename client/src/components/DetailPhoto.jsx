@@ -20,7 +20,7 @@ function DetailPhoto(props) {
   if (props.id[0] === "a") {
     getDownloadFromApi();
   } else {
-    if (props.data) {
+    if (isLoading && props.data) {
       setLoading(false);
     }
   }
