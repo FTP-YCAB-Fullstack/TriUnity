@@ -14,8 +14,8 @@ mainRouter.use(FetchRouter);
 mainRouter.use(signInRouter);
 mainRouter.use(PaymentRouter);
 
-mainRouter.use(authentication).use(authorization);
-mainRouter.use(Profile);
+mainRouter.use(authentication, authorization);
 mainRouter.use(imageRouter);
+mainRouter.use(Profile);
 
 module.exports = mainRouter;

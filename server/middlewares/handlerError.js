@@ -1,5 +1,4 @@
 const handlerError = (err, req, res, next) => {
-  console.error(err);
   if (typeof err.code === "number" && err.code <= 500 && err.message) {
     res.status(err.code).json({
       message: err.message
@@ -23,9 +22,13 @@ const handlerError = (err, req, res, next) => {
     } else if (signaturError) {
       err.code = 401;
     }
-    res.status(err.code || 500).json({
-      message: err.message || "Internal Server Error"
-    });
+    res
+      .status(
+        typeof err.code === "number" && err.code <= 500 ? err.code : null || 500
+      )
+      .json({
+        message: err.message || "Internal Server Error"
+      });
   }
 };
 

@@ -10,5 +10,6 @@ const image = multer({
 imageRouter.post("/image", image.single("image"), imageController.uploadImage);
 imageRouter.get("/image/for-sale", imageController.getAllForSale);
 imageRouter.delete("/image/for-sale/:id", imageController.deleteForSale);
+imageRouter.get("/image/download/:id", imageController.downloadPhoto);
 
 module.exports = imageRouter;
