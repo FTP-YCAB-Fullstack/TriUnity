@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
-import Navbar from "../components/Navbar";
+import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
-
-// Pembaruan NAMA
+import HorizontalScroll from "react-scroll-horizontal"
 
 function Homepage(props) {
   const [photos, setData] = useState([]);
@@ -78,7 +77,7 @@ function Homepage(props) {
 
   return (
     <div>
-      <Navbar className="z-50" />
+      <NavbarHome className="z-50" />
       <Header
         onClicktoSellPhotos={onClicktoSellPhotos}
         onSubmitSearch={onSubmitSearch}

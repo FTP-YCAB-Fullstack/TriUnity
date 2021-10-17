@@ -1,13 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
+import Keranjang from "../assets/keranjang.png";
 import { withRouter } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react"
-import Keranjang from "../assets/keranjang.png"
+import { motion } from 'framer-motion'
 
 
 function Navbar(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
+  const [lastYPos, setLastYPos] = useState(0);
+  const [shouldShowActions, setShouldShowActions] = useState(false);
 
   const onClicktoLogin = () => {
     props.history.push({
@@ -43,8 +46,28 @@ function Navbar(props) {
     })
   }
 
+  useEffect(() => {
+    function handleScroll() {
+      const yPos = window.scrollY;
+      const isScrollingUp = !yPos
+      setShouldShowActions(isScrollingUp);
+      setLastYPos(yPos)
+    }
+
+    window.addEventListener('scroll', handleScroll, false);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, false)
+    }
+  }, [lastYPos])
+
   return (
-    <nav class="w-full fixed top-0 z-50 shadow-md">
+    <motion.div 
+      class="w-full fixed top-0 z-50 shadow-md"
+      animate={{opacity: shouldShowActions ? 0 : 1 }}
+      initial={{opacity: 0}}
+      transition={{opacity: { duration: 0.2 }}} 
+      >
       <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center bg-red-600">
         <img
           src={Keranjang}
@@ -109,7 +132,7 @@ function Navbar(props) {
         </div>
       </div>
       
-    </nav>
+    </motion.div>
   );
 }
 
