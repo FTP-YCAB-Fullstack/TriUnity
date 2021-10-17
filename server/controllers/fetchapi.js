@@ -6,7 +6,7 @@ class FetchApiController {
   static getRandom = async (req, res, next) => {
     try {
       let url =
-        "https://api.unsplash.com/photos/random?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s&count=30";
+        "https://api.unsplash.com/photos/random?client_id=qN-U_v7VlbUf0Yb_91yXwDtXhPgtf3j9LDrzQsWvAww&count=30";
       const data = await axios({
         method: "GET",
         url: url
@@ -30,7 +30,7 @@ class FetchApiController {
   static getCollection = async function(req, res, next) {
     try {
       let url =
-        "https://api.unsplash.com/collections/?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s";
+        "https://api.unsplash.com/collections/?client_id=qN-U_v7VlbUf0Yb_91yXwDtXhPgtf3j9LDrzQsWvAww";
       const data = await axios({
         method: "GET",
         url: url
@@ -69,7 +69,7 @@ class FetchApiController {
       if (id[0] === "a") {
         const url = `https://api.unsplash.com/photos/${id.slice(
           2
-        )}?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s`;
+        )}?client_id=qN-U_v7VlbUf0Yb_91yXwDtXhPgtf3j9LDrzQsWvAww`;
 
         const { data } = await axios({
           method: "GET",
@@ -136,7 +136,6 @@ class FetchApiController {
   static getAllImage = async (req, res, next) => {
     try {
       const images = await ImageForSale.find();
-      console.log(images);
       res.status(200).json({
         message: "Success geting all image local",
         data: images.map(item => {

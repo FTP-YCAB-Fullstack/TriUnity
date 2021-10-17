@@ -1,32 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 
 function DetailPhoto(props) {
-  const [isLoading, setLoading] = useState(true);
-
-  const getDownloadFromApi = async () => {
-    if (props.data !== undefined) {
-      const { data } = await axios.get(
-        props.data.download +
-          "?client_id=r8N-_PwA2nqjsM85zpC4z1_LHR9ROP9puIO3D6oVm-s"
-      );
-      const response = await axios.get(data.url, { responseType: "blob" });
-      const url = URL.createObjectURL(new Blob([response.data]));
-      props.data.download = url;
-      setLoading(false);
-    }
-  };
-
-  if (props.id[0] === "a") {
-    getDownloadFromApi();
-  } else {
-    if (isLoading && props.data) {
-      setLoading(false);
-    }
-  }
-  return isLoading ? (
-    "Loading"
-  ) : (
+  return (
     <div className="bg-red-600 h-2xl md:h-screen p-5 flex justify-center items-center">
       <div className="h-full w-4/5 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row">
         <div className="w-full h-full flex items-center bg-yellow-600">
