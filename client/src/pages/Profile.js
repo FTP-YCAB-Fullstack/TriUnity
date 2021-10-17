@@ -50,18 +50,18 @@ console.log(_id,"edit")
     <div>
       <div>
         <div>
-          <div class="h-screen bg-gray-200  dark:bg-gray-800   flex flex-wrap items-center  justify-center  ">
-            <div class="container lg:w-2/6 xl:w-2/7 sm:w-full md:w-2/3    bg-white  shadow-lg    transform   duration-200 easy-in-out">
-              <div class=" h-32 overflow-hidden">
+          <div class="h-screen bg-gray-200  dark:bg-gray-950   flex flex-wrap items-center  justify-center   ">
+            <div class="container lg:1/2 xl:11/3 sm:w-full md:2/2  shadow-lg    transform   duration-250 easy-in-out bg-indigo-400 ">
+              <div class=" h-100 overflow-hidden">
                 <img
                   class="w-full"
-                  src="https://images.unsplash.com/photo-1605379399642-870262d3d051?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                  src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80"
                   alt=""
                 />
               </div>
-              <div class="flex justify-center px-5  -mt-12">
+              <div class="flex justify-center px-6  mt-20 ">
                 <img
-                  class=" h-36 w-36 bg-white p-2 rounded-full"
+                  class=" h-50 w-40 p-4 rounded-full"
                   src={
                     data.image
                       ? data.image
