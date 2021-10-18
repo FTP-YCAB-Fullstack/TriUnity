@@ -14,7 +14,6 @@ function Homepage(props) {
   const [collection, setCollection] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [localPhotos, setLocalPhotos] = useState([]);
-  console.log(localPhotos);
 
   const getData = () => {
     axios

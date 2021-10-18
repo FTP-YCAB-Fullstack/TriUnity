@@ -1,11 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
-import Keranjang from "../assets/keranjang.png";
 import { withRouter } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react"
-import { motion } from 'framer-motion'
-
+import { Menu, Transition } from "@headlessui/react";
+import { motion } from "framer-motion";
 
 function Navbar(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
@@ -15,12 +13,6 @@ function Navbar(props) {
   const onClicktoLogin = () => {
     props.history.push({
       pathname: "/signin"
-    });
-  };
-
-  const onClicktoKeranjang = () => {
-    props.history.push({
-      pathname: "/keranjang"
     });
   };
 
@@ -43,23 +35,23 @@ function Navbar(props) {
   const onClicktoProfile = () => {
     props.history.push({
       pathname: "/profile"
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     function handleScroll() {
       const yPos = window.scrollY;
-      const isScrollingUp = !yPos
+      const isScrollingUp = !yPos;
       setShouldShowActions(isScrollingUp);
-      setLastYPos(yPos)
+      setLastYPos(yPos);
     }
 
-    window.addEventListener('scroll', handleScroll, false);
+    window.addEventListener("scroll", handleScroll, false);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll, false)
-    }
-  }, [lastYPos])
+      window.removeEventListener("scroll", handleScroll, false);
+    };
+  }, [lastYPos]);
 
   return (
     <motion.div 
@@ -71,34 +63,19 @@ function Navbar(props) {
       >
       <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center bg-red-600">
         <img
-          src={Keranjang}
-          alt="Masukkan kedalam keranjang"
-          className="block md:hidden cursor-pointer w-8 h-8"
-          onClick={onClicktoKeranjang}
-        />
-        <img
           className="cursor-pointer w-32"
           src={AssetLogo}
           alt="logo"
           onClick={onClicktoHome}
         />
         <div className="flex flex-row items-center gap-8">
-          <img
-            src={Keranjang}
-            alt="Masukkan kedalam keranjang"
-            className="hidden md:block cursor-pointer w-8 h-8"
-            onClick={onClicktoKeranjang}
-          />
           {cookies.token ? (
             <div className="relative">
               <Menu>
                 {({ open }) => (
                   <Fragment>
-                    <Menu.Button
-                    className="text-white">
-                      Profile
-                    </Menu.Button>
-                    <Transition 
+                    <Menu.Button className="text-white">Profile</Menu.Button>
+                    <Transition
                       show={open}
                       enter="transform transition duration-100 ease-in"
                       enterFrom="opacity-0 scale-95"
@@ -119,7 +96,7 @@ function Navbar(props) {
                             <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
                           </Menu.Item>
                         </div>
-                        </Menu.Items>
+                      </Menu.Items>
                     </Transition>
                   </Fragment>
                 )}
@@ -132,7 +109,6 @@ function Navbar(props) {
           )}
         </div>
       </div>
-      
     </motion.div>
   );
 }
