@@ -61,7 +61,7 @@ console.log(_id,"edit")
               </div>
               <div class="flex justify-center px-6 -mt-20">
                 <img
-                  class="box-content h-32 w-32 p-4 bg-white "
+                  class="box-content h-32 w-32 p-4 bg-white  mx-auto rounded-full  "
                   src={
                     data.image
                       ? data.image

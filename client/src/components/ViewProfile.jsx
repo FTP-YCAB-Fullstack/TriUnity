@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ViewProfile(props) {
     return (
-        <div class="card mr-4text-center px-14 mb-12 bg-blue-900 p-4 border-4 ">
+        <div class="card mr-4text-center px-14 mb-12 bg-blue-900 p-4 ">
                   <p className="text-start">
                     First Name : {props.firstName ? props.firstName : ""}
                   </p>
