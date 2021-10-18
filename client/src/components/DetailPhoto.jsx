@@ -79,7 +79,11 @@ function DetailPhoto(props) {
                   )
                 }
               >
-                Buy
+                {props.data === undefined
+                  ? "Download"
+                  : props.data.price === undefined
+                  ? "Download"
+                  : "Buy"}
               </button>
             </div>
           </div>
