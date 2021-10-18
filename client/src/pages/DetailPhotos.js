@@ -30,8 +30,7 @@ const itemAnimation = {
 };
 
 function DetailPhotos(props) {
-  console.log(props);
-  const [photos, setData] = useState([]);
+  const [photos, setData] = useState(null);
   const id = props.match.params.id;
   const [detailPhotos, setDetailPhotos] = useState(id);
   const [isLoading, setLoading] = useState(true);
@@ -63,7 +62,8 @@ function DetailPhotos(props) {
       .then(response => response.data)
       .then(json => {
         setDetailPhotos(json);
-      });
+      })
+      .catch(() => setDetailPhotos([]));
   };
 
   const onClicktoDetailPhotos = id => {
@@ -174,6 +174,10 @@ function DetailPhotos(props) {
       }
     }
   }, [detailPhotos]);
+
+  if (detailPhotos && detailPhotos.length === 0) {
+    return "404 Page Not Found";
+  }
 
   return isLoading ? (
     <Loading />

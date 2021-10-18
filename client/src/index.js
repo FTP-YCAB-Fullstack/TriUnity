@@ -6,13 +6,13 @@ import { PublicRoute, PrivateRoute } from "./components/Routes";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import "./tailwind.css";
-import store from "./redux/store";  
+import store from "./redux/store";
 import SignIn from "./pages/SignIn";
 import Homepage from "./pages/Home";
 import SellPhotos from "./pages/SellPhotos";
 import DetailPhotos from "./pages/DetailPhotos";
 import PhotosForSale from "./pages/PhotosForSale";
-import CollectionPage from "./pages/CollectionPage"
+import CollectionPage from "./pages/CollectionPage";
 
 const Main = () => {
   return (
@@ -47,6 +47,9 @@ const Main = () => {
             />
             <PrivateRoute path="/profile" exact component={Profile} />
             <PrivateRoute path="/sell" exact component={SellPhotos} />
+            <PublicRoute onlyPublic={false} path="*">
+              404 Page Not Found
+            </PublicRoute>
           </Switch>
         </Router>
       </Provider>
