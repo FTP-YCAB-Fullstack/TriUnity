@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 import assetSignIn from "../assets/SignIn.jpeg";
 import Swal from "sweetalert2";
 
-const SignIn = () => {
+const SignIn = props => {
   const [, setCookies] = useCookies(["token"]);
   const [label, setLabel] = useState("Login");
 
@@ -20,6 +20,11 @@ const SignIn = () => {
       .catch(error => error.response);
     if (response && response.status === 200) {
       setCookies("token", response.data.token, { path: "/" });
+      if (props.location.state) {
+        props.history.push({
+          pathname: props.location.state.redirect
+        });
+      }
     } else {
       Swal.fire({
         icon: "error",
@@ -41,6 +46,11 @@ const SignIn = () => {
       .catch(error => error.response);
     if (response && response.status === 201) {
       setCookies("token", response.data.token, { path: "/" });
+      if (props.location.state) {
+        props.history.push({
+          pathname: props.location.state.redirect
+        });
+      }
     } else {
       Swal.fire({
         icon: "error",

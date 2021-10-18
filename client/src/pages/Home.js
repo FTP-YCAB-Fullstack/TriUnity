@@ -7,10 +7,10 @@ import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 
 function Homepage(props) {
-  const [photos, setData] = useState([]);
-  const [collection, setCollection] = useState([]);
+  const [photos, setData] = useState(null);
+  const [collection, setCollection] = useState(null);
+  const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-  const [localPhotos, setLocalPhotos] = useState([]);
 
   const getData = () => {
     axios
@@ -73,7 +73,9 @@ function Homepage(props) {
     }
   };
 
-  return (
+  return !photos || !collection || !localPhotos ? (
+    "Loading"
+  ) : (
     <div>
       <NavbarHome className="z-50" />
       <Header

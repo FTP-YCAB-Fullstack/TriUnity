@@ -5,12 +5,16 @@ import Navbar from "../components/Navbar";
 import Masonry from "react-masonry-css";
 import RandomPhotos from "../components/RandomPhotos";
 import Swal from "sweetalert2";
+import { useCookies } from "react-cookie";
+import { withRouter } from "react-router-dom";
 
 function DetailPhotos(props) {
+  console.log(props);
   const [photos, setData] = useState([]);
   const id = props.match.params.id;
   const [detailPhotos, setDetailPhotos] = useState(id);
   const [isLoading, setLoading] = useState(true);
+  const [cookies] = useCookies(["token"]);
 
   const getDownloadFromApi = async () => {
     const { data } = await axios.get(
@@ -49,57 +53,75 @@ function DetailPhotos(props) {
 
   const onClickDownload = async (url, filename, price) => {
     if (id[0] === "u" && price !== "Free") {
-      const response = await axios
-        .post(
-          "http://localhost:5000/payment",
-          { price: +price.split(" ")[1], id: id.slice(2) },
-          { withCredentials: true }
-        )
-        .catch(error => error.response);
-      if (response && response.status === 201) {
-        window.snap.pay(response.data.token, {
-          onSuccess: function(result) {
-            /* You may add your own implementation here */
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            Swal.fire({
-              icon: "success",
-              title: "payment success!",
-              timer: 2000
-            });
-          },
-          onPending: function(result) {
-            /* You may add your own implementation here */
-
-            Swal.fire({
-              icon: "info",
-              title: "wating your payment!"
-            });
-          },
-          onError: function(result) {
-            /* You may add your own implementation here */
-
-            Swal.fire({
-              icon: "error",
-              title: "payment failed!"
-            });
-          },
-          onClose: function() {
-            /* You may add your own implementation here */
-
-            Swal.fire({
-              icon: "warning",
-              title: "you closed the popup without finishing the payment"
+      if (!cookies.token) {
+        Swal.fire({
+          icon: "info",
+          text: "if you want to download a paid one please sign in first!",
+          confirmButtonText: "Sign In",
+          cancelButtonText: "Cancel",
+          showCancelButton: true,
+          preConfirm: () => {
+            props.history.push({
+              pathname: "/signin",
+              state: {
+                redirect: props.location.pathname
+              }
             });
           }
         });
       } else {
-        console.log(response);
+        const response = await axios
+          .post(
+            "http://localhost:5000/payment",
+            { price: +price.split(" ")[1], id: id.slice(2) },
+            { withCredentials: true }
+          )
+          .catch(error => error.response);
+        if (response && response.status === 201) {
+          window.snap.pay(response.data.token, {
+            onSuccess: function(result) {
+              /* You may add your own implementation here */
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+
+              Swal.fire({
+                icon: "success",
+                title: "payment success!",
+                timer: 2000
+              });
+            },
+            onPending: function(result) {
+              /* You may add your own implementation here */
+
+              Swal.fire({
+                icon: "info",
+                title: "wating your payment!"
+              });
+            },
+            onError: function(result) {
+              /* You may add your own implementation here */
+
+              Swal.fire({
+                icon: "error",
+                title: "payment failed!"
+              });
+            },
+            onClose: function() {
+              /* You may add your own implementation here */
+
+              Swal.fire({
+                icon: "warning",
+                title: "you closed the popup without finishing the payment"
+              });
+            }
+          });
+        } else {
+          console.log(response.data);
+        }
       }
     } else {
       const link = document.createElement("a");
@@ -157,4 +179,4 @@ function DetailPhotos(props) {
   );
 }
 
-export default DetailPhotos;
+export default withRouter(DetailPhotos);
