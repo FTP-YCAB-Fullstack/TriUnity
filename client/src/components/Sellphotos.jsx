@@ -19,8 +19,20 @@ function Sellphotos(props) {
           className="bg-gray-200 focus:ring focus:ring-red-600 focus:outline-none rounded m-4 p-2"
           type="number"
           name="price"
+          disabled={props.checkedFree}
+          min="1000"
+          step="1000"
           placeholder="insert price in here..."
         />
+        <div>
+          <input
+            className="m-4 p-2"
+            type="checkbox"
+            checked={props.checkedFree}
+            onChange={() => props.setCheckedFree(!props.checkedFree)}
+          />
+          Free
+        </div>
         <textarea
           className="bg-gray-200 focus:ring focus:ring-red-600 focus:outline-none rounded m-4 p-2"
           name="description"

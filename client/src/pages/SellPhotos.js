@@ -4,19 +4,28 @@ import axios from "axios";
 
 export default function SellPhotos(props) {
   const [message, setMessage] = useState("");
+  const [checkedFree, setCheckedFree] = useState(false);
 
   const onClickSell = async event => {
     event.preventDefault();
+
     const formData = new FormData();
     const image = event.target.image.files[0];
     const title = event.target.title.value;
     const price = event.target.price.value;
     const description = event.target.description.value;
-    if (image && image.name.trim() !== "" && title.trim() !== "" && price) {
+    if (
+      image &&
+      image.name.trim() !== "" &&
+      title.trim() !== "" &&
+      (price || checkedFree)
+    ) {
       formData.append("image", image);
       formData.append("filename", image ? image.name : "");
       formData.append("title", title);
-      formData.append("price", price);
+      if (!checkedFree) {
+        formData.append("price", price);
+      }
       if (description.trim !== "") {
         formData.append("description", description);
       }
@@ -41,7 +50,12 @@ export default function SellPhotos(props) {
   };
   return (
     <div>
-      <Sellphotos onClickSell={onClickSell} message={message} />
+      <Sellphotos
+        onClickSell={onClickSell}
+        message={message}
+        checkedFree={checkedFree}
+        setCheckedFree={setCheckedFree}
+      />
     </div>
   );
 }
