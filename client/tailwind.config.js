@@ -1,15 +1,15 @@
 module.exports = {
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-    fontFamily: {
-      roboto: "'Roboto', sans-serif",
-    }
-  }
+      fontFamily: {
+        roboto: "'Roboto', sans-serif",
+      }
+    },
   },
   variants: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
-};
+  plugins: [],
+}

@@ -8,6 +8,26 @@ import Swal from "sweetalert2";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
 
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemAnimation = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+};
+
 function DetailPhotos(props) {
   console.log(props);
   const [photos, setData] = useState([]);
@@ -165,15 +185,15 @@ function DetailPhotos(props) {
         className="my-masonry-grid mx-12 my-7"
         columnClassName="my-masonry-grid_column"
       >
-        {photos.map((item, index) => {
-          return (
-            <RandomPhotos
-              onClicktoDetailPhotos={onClicktoDetailPhotos}
-              {...item}
-              key={index}
-            />
-          );
-        })}
+      {photos.map((item, index) => {
+        return (
+          <RandomPhotos
+            onClicktoDetailPhotos={onClicktoDetailPhotos}
+            {...item}
+            key={index}
+          />
+        );
+      })}
       </Masonry>
     </div>
   );
