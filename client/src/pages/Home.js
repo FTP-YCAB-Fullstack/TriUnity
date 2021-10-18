@@ -6,6 +6,7 @@ import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
+import Loading from "../components/Loading"
 
 function Homepage(props) {
   const [photos, setData] = useState(null);
@@ -81,7 +82,7 @@ function Homepage(props) {
   };
 
   return !photos || !collection || !localPhotos ? (
-    "Loading"
+    <Loading />
   ) : (
     <div>
       <NavbarTransparent />
