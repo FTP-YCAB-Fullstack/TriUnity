@@ -4,15 +4,11 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import { useCookies } from "react-cookie";
 import assetSignIn from "../assets/SignIn.jpeg";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
   const [, setCookies] = useCookies(["token"]);
   const [label, setLabel] = useState("Login");
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    setMessage("");
-  }, [label]);
 
   const onSubmitLogin = async event => {
     event.preventDefault();
@@ -25,7 +21,11 @@ const SignIn = () => {
     if (response && response.status === 200) {
       setCookies("token", response.data.token, { path: "/" });
     } else {
-      setMessage(response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: response.data.message
+      });
     }
   };
 
@@ -42,7 +42,11 @@ const SignIn = () => {
     if (response && response.status === 201) {
       setCookies("token", response.data.token, { path: "/" });
     } else {
-      setMessage(response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: response.data.message
+      });
     }
   };
 
@@ -75,9 +79,9 @@ const SignIn = () => {
           </li>
         </ol>
         {label === "Login" ? (
-          <Login onSubmitLogin={onSubmitLogin} message={message} />
+          <Login onSubmitLogin={onSubmitLogin} />
         ) : (
-          <Register onSubmitRegister={onSubmitRegister} message={message} />
+          <Register onSubmitRegister={onSubmitRegister} />
         )}
       </div>
     </div>

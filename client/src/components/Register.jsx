@@ -34,9 +34,6 @@ const Register = props => {
         name="password"
         placeholder="insert password in here..."
       />
-      <label className="mx-4 my-2 text-red-500 text-center">
-        {props.message}
-      </label>
       <button
         className="rounded-full my-8 p-2 mx-auto bg-red-300 w-2/4"
         type="submit"
