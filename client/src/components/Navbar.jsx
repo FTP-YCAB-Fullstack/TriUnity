@@ -3,7 +3,6 @@ import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import Keranjang from "../assets/keranjang.png";
 
 function Navbar(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
@@ -11,12 +10,6 @@ function Navbar(props) {
   const onClicktoLogin = () => {
     props.history.push({
       pathname: "/signin"
-    });
-  };
-
-  const onClicktoKeranjang = () => {
-    props.history.push({
-      pathname: "/keranjang"
     });
   };
 

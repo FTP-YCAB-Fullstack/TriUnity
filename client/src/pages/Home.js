@@ -5,14 +5,12 @@ import axios from "axios";
 import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
-import HorizontalScroll from "react-scroll-horizontal"
 
 function Homepage(props) {
   const [photos, setData] = useState([]);
   const [collection, setCollection] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [localPhotos, setLocalPhotos] = useState([]);
-  console.log(localPhotos);
 
   const getData = () => {
     axios

@@ -27,6 +27,9 @@ function Sellphotos(props) {
           placeholder="insert description in here..."
         ></textarea>
         <input className="rounded m-4 p-2" type="file" name="image" />
+        <label className="mx-4 my-2 text-red-500 text-center">
+          {props.message}
+        </label>
         <button
           className="rounded-full bg-green-400 hover:bg-green-600 my-8 p-2 mx-auto w-2/4"
           type="submit"
