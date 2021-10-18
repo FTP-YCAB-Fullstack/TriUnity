@@ -47,38 +47,42 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <img className="w-full" src={assetSignIn} alt="SignIn" />
-      <div className="flex flex-col items-center w-full">
-        <ol className="flex justify-center list-none w-full my-4">
-          <li
-            className="cursor-pointer p-4 w-2/5 text-center rounded-l-full"
-            style={{
-              backgroundColor:
-                label === "Login" ? "rgba(52, 211, 153)" : "rgba(254, 202, 202)"
-            }}
-            onClick={event => setLabel(event.target.innerHTML)}
-          >
-            Login
-          </li>
-          <li
-            className="cursor-pointer p-4 w-2/5 text-center rounded-r-full"
-            style={{
-              backgroundColor:
-                label === "Register"
-                  ? "rgba(52, 211, 153)"
-                  : "rgba(254, 202, 202)"
-            }}
-            onClick={event => setLabel(event.target.innerHTML)}
-          >
-            Register
-          </li>
-        </ol>
-        {label === "Login" ? (
-          <Login onSubmitLogin={onSubmitLogin} message={message} />
-        ) : (
-          <Register onSubmitRegister={onSubmitRegister} message={message} />
-        )}
+    <div className="flex h-screen w-screen justify-center items-center">
+      <div className="flex w-3/4 h-3/4 bg-red-200 justify-center items-center flex-row rounded-2xl shadow-2xl">
+        <div className="bg-red-600 h-full rounded-l-2xl w-1/2 overflow-hidden">
+          <img className="w-full" src={assetSignIn} alt="SignIn" />
+        </div>
+        <div className="flex flex-col items-center w-1/2">
+          <ol className="flex justify-center list-none w-full my-4">
+            <li
+              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner rounded-l-full"
+              style={{
+                backgroundColor:
+                  label === "Login" ? "rgba(52, 211, 153)" : "rgba(254, 202, 202)"
+              }}
+              onClick={event => setLabel(event.target.innerHTML)}
+            >
+              Login
+            </li>
+            <li
+              className="cursor-pointer p-4 w-2/5 text-center rounded-r-full"
+              style={{
+                backgroundColor:
+                  label === "Register"
+                    ? "rgba(52, 211, 153)"
+                    : "rgba(254, 202, 202)"
+              }}
+              onClick={event => setLabel(event.target.innerHTML)}
+            >
+              Register
+            </li>
+          </ol>
+          {label === "Login" ? (
+            <Login onSubmitLogin={onSubmitLogin} message={message} />
+          ) : (
+            <Register onSubmitRegister={onSubmitRegister} message={message} />
+          )}
+        </div>
       </div>
     </div>
   );

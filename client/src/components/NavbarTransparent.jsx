@@ -1,16 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
-import Keranjang from "../assets/keranjang.png";
 import { withRouter } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react"
-import { motion } from 'framer-motion'
+import Keranjang from "../assets/keranjang.png"
 
 
-function Navbar(props) {
+function NavbarTransparent(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
-  const [lastYPos, setLastYPos] = useState(0);
-  const [shouldShowActions, setShouldShowActions] = useState(false);
 
   const onClicktoLogin = () => {
     props.history.push({
@@ -46,30 +43,9 @@ function Navbar(props) {
     })
   }
 
-  useEffect(() => {
-    function handleScroll() {
-      const yPos = window.scrollY;
-      const isScrollingUp = !yPos
-      setShouldShowActions(isScrollingUp);
-      setLastYPos(yPos)
-    }
-
-    window.addEventListener('scroll', handleScroll, false);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll, false)
-    }
-  }, [lastYPos])
-
   return (
-    <motion.div 
-      className={"w-full fixed top-0 z-50 shadow-md " + (shouldShowActions == 0 ? "block" : "hidden")}
-      animate={{opacity: shouldShowActions ? 0 : 1,
-                backgroundColor: shouldShowActions ? "transparent" : "red",}}
-      initial={{backgroundColor: "transparent"}}
-      transition={{opacity: { duration: 0.2 }}} 
-      >
-      <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center bg-red-600">
+    <nav class="w-full fixed top-0 z-50 shadow-md">
+      <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center">
         <img
           src={Keranjang}
           alt="Masukkan kedalam keranjang"
@@ -110,13 +86,13 @@ function Navbar(props) {
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
                         <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
+                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
+                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
                           </Menu.Item>
                         </div>
                         </Menu.Items>
@@ -133,8 +109,8 @@ function Navbar(props) {
         </div>
       </div>
       
-    </motion.div>
+    </nav>
   );
 }
 
-export default withRouter(Navbar);
+export default withRouter(NavbarTransparent);
