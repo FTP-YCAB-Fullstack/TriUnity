@@ -17,7 +17,7 @@ function Sellphotos(props) {
               placeholder="insert title in here..."
             />
             <input
-              className="bg-gray-200 focus:ring focus:ring-red-600 focus:outline-none rounded m-4 p-2"
+              className="bg-gray-200 focus:ring focus:ring-red-600 focus:outline-none rounded m-4 p-2 disabled:opacity-30"
               type="number"
               name="price"
               disabled={props.checkedFree}

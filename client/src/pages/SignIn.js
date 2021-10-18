@@ -48,7 +48,7 @@ const SignIn = () => {
 
   return (
     <div className="flex h-screen w-screen justify-center items-center">
-      <div className="flex w-3/4 h-3/4 bg-red-200 justify-center items-center flex-row rounded-2xl shadow-2xl">
+      <div className="flex w-3/4 my-8 justify-center items-center flex-row rounded-2xl shadow-2xl">
         <div className="bg-red-600 h-full rounded-l-2xl w-1/2 overflow-hidden">
           <img className="w-full" src={assetSignIn} alt="SignIn" />
         </div>
@@ -65,7 +65,7 @@ const SignIn = () => {
               Login
             </li>
             <li
-              className="cursor-pointer p-4 w-2/5 text-center rounded-r-full"
+              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner text-center rounded-r-full"
               style={{
                 backgroundColor:
                   label === "Register"

@@ -5,8 +5,6 @@ import axios from "axios";
 import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
-import HorizontalScroll from "react-scroll-horizontal"
-import Navbar from "../components/Navbar";
 import NavbarTransparent from "../components/NavbarTransparent";
 
 function Homepage(props) {

@@ -47,24 +47,12 @@ function NavbarTransparent(props) {
     <nav class="w-full fixed top-0 z-50 shadow-md">
       <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center">
         <img
-          src={Keranjang}
-          alt="Masukkan kedalam keranjang"
-          className="block md:hidden cursor-pointer w-8 h-8"
-          onClick={onClicktoKeranjang}
-        />
-        <img
           className="cursor-pointer w-32"
           src={AssetLogo}
           alt="logo"
           onClick={onClicktoHome}
         />
         <div className="flex flex-row items-center gap-8">
-          <img
-            src={Keranjang}
-            alt="Masukkan kedalam keranjang"
-            className="hidden md:block cursor-pointer w-8 h-8"
-            onClick={onClicktoKeranjang}
-          />
           {cookies.token ? (
             <div className="relative">
               <Menu>
@@ -86,13 +74,13 @@ function NavbarTransparent(props) {
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
                         <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
                           </Menu.Item>
                         </div>
                         </Menu.Items>
