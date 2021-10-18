@@ -1,9 +1,10 @@
 import React from "react";
+import { motion } from 'framer-motion'
 
 function DetailPhoto(props) {
   return (
-    <div className="bg-red-600 h-2xl md:h-screen p-5 flex justify-center items-center">
-      <div className="h-full w-4/5 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row">
+    <div className="h-2xl md:h-screen p-5 flex justify-center items-center">
+      <div className="max-h-full w-4/5 mb-12 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row shadow-2xl">
         <div className="w-full h-full flex items-center bg-yellow-600">
           <img
             src={props.data === undefined ? "" : props.data.image}
@@ -52,7 +53,7 @@ function DetailPhoto(props) {
             </div>
 
             <div className="flex justify-end">
-              <button className="bg-red-600 py-2 px-8 rounded-full">
+              <button className="bg-red-600 hover:bg-red-400 hover:text-black text-white font-medium py-2 px-8 rounded-full">
                 <a
                   href={`${
                     props.data === undefined ? "#" : props.data.download
