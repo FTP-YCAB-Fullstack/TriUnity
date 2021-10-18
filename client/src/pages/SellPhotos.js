@@ -20,7 +20,13 @@ export default function SellPhotos(props) {
         withCredentials: true
       })
       .catch(error => error.response);
-    console.log(response);
+    if (response.status === 201) {
+      props.history.replace({
+        pathname: "/photos-for-sale"
+      });
+    } else {
+      console.log(response);
+    }
   };
   return (
     <div>
