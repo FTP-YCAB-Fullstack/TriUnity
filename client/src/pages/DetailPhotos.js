@@ -19,7 +19,6 @@ function DetailPhotos(props) {
     const response = await axios.get(data.url, { responseType: "blob" });
     const url = URL.createObjectURL(new Blob([response.data]));
     detailPhotos.data.download = url;
-    console.log(url);
     setLoading(false);
   };
 

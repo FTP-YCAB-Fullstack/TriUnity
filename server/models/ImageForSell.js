@@ -23,8 +23,7 @@ const ImageForSell = new Schema(
       unique: true
     },
     price: {
-      type: Number,
-      required: true
+      type: Number
     },
     description: {
       type: String

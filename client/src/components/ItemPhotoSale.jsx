@@ -11,7 +11,9 @@ const ItemPhotoSale = props => {
       />
       <div className="flex-grow text-center flex flex-col justify-center">
         <p className="font-bold text-xl mt-1.5 mb-4">{props.title}</p>
-        <p className="text-lg my-1.5">{"Rp. " + props.price}</p>
+        <p className="text-lg my-1.5">
+          {props.price ? "Rp. " + props.price : "Free"}
+        </p>
         <p className="text-lg my-1.5">Description</p>
         <p>{props.description}</p>
       </div>

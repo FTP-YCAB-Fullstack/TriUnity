@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 
 function RandomPhotos(props) {
-  console.log(props);
   if (props.url) {
     return (
       <div
