@@ -4,7 +4,6 @@ class Midtrans {
   static async payment(req, res, next) {
     try {
       const { price, id } = req.body;
-      console.log(price, typeof price);
       const { firstName, lastName, email } = req.currentUser;
       let snap = new midtransClient.Snap({
         isProduction: false,
@@ -22,8 +21,7 @@ class Midtrans {
         customer_details: {
           first_name: firstName,
           last_name: lastName,
-          email: email,
-          phone: "08111222333"
+          email: email
         }
       };
 

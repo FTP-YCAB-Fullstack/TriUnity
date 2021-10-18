@@ -25,13 +25,21 @@ function DetailPhoto(props) {
             <div className="pt-12">
               <h1 className="mb-3">
                 {props.data === undefined
-                  ? "AESTHETIC PHOTO"
-                  : props.data.title}
+                  ? "Untitle Photo"
+                  : props.data.title
+                  ? props.data.title
+                  : "Untitle Photo"}
               </h1>
               <div className="flex flex-row items-center gap-2">
                 <div className="h-12 w-12 rounded-full bg-gray-400 overflow-hidden">
                   <img
-                    src={props.data === undefined ? "" : props.data.user.image}
+                    src={
+                      props.data === undefined
+                        ? "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+                        : props.data.user.image
+                        ? props.data.user.image
+                        : "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+                    }
                     alt="user"
                   />
                 </div>

@@ -4,6 +4,7 @@ import DetailPhoto from "../components/DetailPhoto";
 import Navbar from "../components/Navbar";
 import Masonry from "react-masonry-css";
 import RandomPhotos from "../components/RandomPhotos";
+import Swal from "sweetalert2";
 
 function DetailPhotos(props) {
   const [photos, setData] = useState([]);
@@ -48,7 +49,6 @@ function DetailPhotos(props) {
 
   const onClickDownload = async (url, filename, price) => {
     if (id[0] === "u" && price !== "Free") {
-      console.log(price, typeof price);
       const response = await axios
         .post(
           "http://localhost:5000/payment",
@@ -66,22 +66,36 @@ function DetailPhotos(props) {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            console.log("payment success!");
-            console.log(result);
+
+            Swal.fire({
+              icon: "success",
+              title: "payment success!",
+              timer: 2000
+            });
           },
           onPending: function(result) {
             /* You may add your own implementation here */
-            console.log("wating your payment!");
-            console.log(result);
+
+            Swal.fire({
+              icon: "info",
+              title: "wating your payment!"
+            });
           },
           onError: function(result) {
             /* You may add your own implementation here */
-            console.log("payment failed!");
-            console.log(result);
+
+            Swal.fire({
+              icon: "error",
+              title: "payment failed!"
+            });
           },
           onClose: function() {
             /* You may add your own implementation here */
-            console.log("you closed the popup without finishing the payment");
+
+            Swal.fire({
+              icon: "warning",
+              title: "you closed the popup without finishing the payment"
+            });
           }
         });
       } else {
