@@ -6,12 +6,13 @@ import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
+import Loading from "../components/Loading"
 
 function Homepage(props) {
-  const [photos, setData] = useState([]);
-  const [collection, setCollection] = useState([]);
+  const [photos, setData] = useState(null);
+  const [collection, setCollection] = useState(null);
+  const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-  const [localPhotos, setLocalPhotos] = useState([]);
 
   const getData = () => {
     axios
@@ -80,7 +81,9 @@ function Homepage(props) {
     }
   };
 
-  return (
+  return !photos || !collection || !localPhotos ? (
+    <Loading />
+  ) : (
     <div>
       <NavbarTransparent />
       <NavbarHome className="z-50" />

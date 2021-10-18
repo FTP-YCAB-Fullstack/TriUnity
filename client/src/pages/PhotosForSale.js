@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import ItemPhotoSale from "../components/ItemPhotoSale";
 import axios from "axios";
+import Swal from "sweetalert2";
+import Loading from "../components/Loading";
 
-const PhotosForSale = props => {
+const PhotosForSale = () => {
   const [photos, setPhotos] = useState(null);
   const [refresh, setRefresh] = useState(false);
-  console.log(photos);
 
   const getPhotos = async () => {
     const response = await axios
@@ -24,17 +25,30 @@ const PhotosForSale = props => {
   }, [refresh]);
 
   const onClickDeleteSalePhoto = async image => {
-    const response = await axios
-      .delete(`http://localhost:5000/image/for-sale/${image}`, {
-        withCredentials: true
-      })
-      .catch(error => error.response);
-    if (response && response.status === 200) {
-      setRefresh(!refresh);
-    }
+    Swal.fire({
+      icon: "warning",
+      title: "Delete Photo",
+      text: "Are you sure to delete this photo?",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      showCancelButton: true,
+      showCloseButton: true,
+      preConfirm: async () => {
+        const response = await axios
+          .delete(`http://localhost:5000/image/for-sale/${image}`, {
+            withCredentials: true
+          })
+          .catch(error => error.response);
+        if (response && response.status === 200) {
+          setRefresh(!refresh);
+        }
+      }
+    });
   };
 
-  return (
+  return !photos ? (
+    <Loading />
+  ) : (
     <>
       <Navbar />
       {photos === null
