@@ -1,7 +1,7 @@
 /*! tailwindcss v2.2.16 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 /*
 Document
 ========
@@ -66,6 +66,7 @@ Remove the margin in all browsers.
 
 body {
   margin: 0;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 /**
