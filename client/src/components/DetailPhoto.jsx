@@ -52,15 +52,25 @@ function DetailPhoto(props) {
             </div>
 
             <div className="flex justify-end">
-              <button className="bg-red-600 py-2 px-8 rounded-full">
-                <a
-                  href={`${
-                    props.data === undefined ? "#" : props.data.download
-                  }`}
-                  download="photo.png"
-                >
-                  Buy
-                </a>
+              <button
+                className="bg-red-600 py-2 px-8 rounded-full"
+                onClick={() =>
+                  props.onClickDownload(
+                    props.data === undefined ? "#" : props.data.download,
+                    props.data === undefined
+                      ? "photo-futuccrup.png"
+                      : props.data.title
+                      ? props.data.title + ".png"
+                      : "photo-futuccrup.png",
+                    props.data === undefined
+                      ? "Free"
+                      : props.data.price === undefined
+                      ? "Free"
+                      : props.data.price
+                  )
+                }
+              >
+                Buy
               </button>
             </div>
           </div>

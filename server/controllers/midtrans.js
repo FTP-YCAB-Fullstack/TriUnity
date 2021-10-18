@@ -1,7 +1,11 @@
 const midtransClient = require("midtrans-client");
+
 class Midtrans {
   static async payment(req, res, next) {
     try {
+      const { price, id } = req.body;
+      console.log(price, typeof price);
+      const { firstName, lastName, email } = req.currentUser;
       let snap = new midtransClient.Snap({
         isProduction: false,
         serverKey: "SB-Mid-server-xn-Xkl2DCCrTrCKzMgYSf26o"
@@ -9,27 +13,28 @@ class Midtrans {
 
       let parameter = {
         transaction_details: {
-          order_id: "YOUR-ORDERID-123456",
-          gross_amound: 10000
+          order_id: `${Date.now()}-${id}`,
+          gross_amount: price
         },
         creadit_card: {
           secure: true
         },
-        customer_detail: {
-          first_name: "budi",
-          last_name: "pratama",
-          email: "budi.pra@example.com",
+        customer_details: {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
           phone: "08111222333"
         }
       };
 
-      snap
+      const transaction = await snap
         .createTransaction(parameter)
-        .then(transaction => {
-          console.log(transaction);
-          res.redirect(transaction.redirect_url);
-        })
-        .catch(error => next(error.response));
+        .catch(error => error);
+      if (transaction) {
+        res.status(201).json(transaction);
+      } else {
+        next(transaction);
+      }
     } catch (error) {
       next(error);
     }

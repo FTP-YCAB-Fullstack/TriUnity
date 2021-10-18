@@ -46,6 +46,57 @@ function DetailPhotos(props) {
     });
   };
 
+  const onClickDownload = async (url, filename, price) => {
+    if (id[0] === "u" && price !== "Free") {
+      console.log(price, typeof price);
+      const response = await axios
+        .post(
+          "http://localhost:5000/payment",
+          { price: +price.split(" ")[1], id: id.slice(2) },
+          { withCredentials: true }
+        )
+        .catch(error => error.response);
+      if (response && response.status === 201) {
+        window.snap.pay(response.data.token, {
+          onSuccess: function(result) {
+            /* You may add your own implementation here */
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            console.log("payment success!");
+            console.log(result);
+          },
+          onPending: function(result) {
+            /* You may add your own implementation here */
+            console.log("wating your payment!");
+            console.log(result);
+          },
+          onError: function(result) {
+            /* You may add your own implementation here */
+            console.log("payment failed!");
+            console.log(result);
+          },
+          onClose: function() {
+            /* You may add your own implementation here */
+            console.log("you closed the popup without finishing the payment");
+          }
+        });
+      } else {
+        console.log(response);
+      }
+    } else {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -72,7 +123,7 @@ function DetailPhotos(props) {
   ) : (
     <div>
       <Navbar />
-      <DetailPhoto {...{ ...detailPhotos, id }} />
+      <DetailPhoto {...{ ...detailPhotos, id, onClickDownload }} />
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"
