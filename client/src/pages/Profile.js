@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Profilecomponent from "../components/Profile";
-
+import ViewProfile from "../components/ViewProfile";
 function Profile() {
   const [data, setData] = useState({});
     console.log(data);
@@ -59,9 +59,9 @@ console.log(_id,"edit")
                   alt=""
                 />
               </div>
-              <div class="flex justify-center px-6  mt-20 ">
+              <div class="flex justify-center px-6 -mt-20">
                 <img
-                  class=" h-50 w-40 p-4 rounded-full"
+                  class="box-content h-32 w-32 p-4 bg-white "
                   src={
                     data.image
                       ? data.image
@@ -79,6 +79,7 @@ console.log(_id,"edit")
                   </header>
                 </div>
                 <Profilecomponent onSubmitUpdate = {onSubmitUpdate} {...data}/>
+                <ViewProfile {...data}/>
                 {/* <div class="text-center px-14 mb-12">
                   <p className="text-start">
                     First Name : {data.firstName ? data.firstName : ""}

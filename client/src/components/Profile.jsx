@@ -3,7 +3,7 @@ import React from "react";
 
 const Profile = (props) => {
     return(
-        <div class="bg-indigo-400 ">
+        <div class="bg-indigo-400 flex-col flex-grow w-full my-10">
         <form onSubmit= { (even) => props.onSubmitUpdate(even)} >
             <input type="text" name="firstName" placeholder={props.firstName ? props.firstName : ""}/>
             <input type="text" name="lastName" placeholder={props.lastName ? props.lastName : ""}/>
