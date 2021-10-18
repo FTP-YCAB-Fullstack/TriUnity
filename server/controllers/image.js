@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const ImageForSale = require("../models/ImageForSell");
-const axios = require("axios");
+const { ObjectId } = require("mongoose").Types;
 
 class Image {
   static async uploadImage(req, res, next) {
@@ -33,7 +33,7 @@ class Image {
               price,
               description
             });
-            res.status(200).json({
+            res.status(201).json({
               message: "Image uploaded"
             });
           }
@@ -47,7 +47,7 @@ class Image {
   static async getAllForSale(req, res, next) {
     try {
       const { id: userId } = req.currentUser;
-      const photos = await ImageForSale.find({ "user.id": userId });
+      const photos = await ImageForSale.find({ "user._id": ObjectId(userId) });
       res.status(200).json({
         message: "Success geting photos for sale",
         photos
