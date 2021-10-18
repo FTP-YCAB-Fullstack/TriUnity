@@ -4,11 +4,8 @@ import background from "../assets/background.png";
 function Header(props) {
   return (
     <header>
-      <div
-        style={{ backgroundImage: `url(${background})` }}
-        className="w-full h-screen bg-yellow-400 flex flex-col justify-center items-center"
-      >
-        <h1 className="text-4xl text-center w-2/5">
+      <div className="w-full h-screen flex flex-col justify-center items-center" style={{backgroundImage: `url(${background})`}}>
+        <h1 className="text-4xl text-center w-2/5 font-roboto text-bold">
           Sell ​​photos without worrying about plagiarism
         </h1>
         <form

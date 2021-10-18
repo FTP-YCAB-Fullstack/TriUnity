@@ -3,9 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-    backgroundImage: theme => ({
-     'homepage-background': "url('/src/assets/background.png')",
-    })
+    fontFamily: {
+      roboto: "'Roboto', sans-serif",
+    }
   }
   },
   variants: {
