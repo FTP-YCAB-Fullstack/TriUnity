@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import ItemPhotoSale from "../components/ItemPhotoSale";
 import axios from "axios";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 const PhotosForSale = () => {
   const [photos, setPhotos] = useState(null);
@@ -32,7 +32,7 @@ const PhotosForSale = () => {
       cancelButtonText: "No",
       showCancelButton: true,
       showCloseButton: true,
-      preConfirm: () => {
+      preConfirm: async () => {
         const response = await axios
           .delete(`http://localhost:5000/image/for-sale/${image}`, {
             withCredentials: true
@@ -42,7 +42,7 @@ const PhotosForSale = () => {
           setRefresh(!refresh);
         }
       }
-    })
+    });
   };
 
   return (

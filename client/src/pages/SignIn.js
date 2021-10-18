@@ -94,9 +94,9 @@ const SignIn = props => {
             </li>
           </ol>
           {label === "Login" ? (
-            <Login onSubmitLogin={onSubmitLogin} message={message} />
+            <Login onSubmitLogin={onSubmitLogin} />
           ) : (
-            <Register onSubmitRegister={onSubmitRegister} message={message} />
+            <Register onSubmitRegister={onSubmitRegister} />
           )}
         </div>
       </div>
