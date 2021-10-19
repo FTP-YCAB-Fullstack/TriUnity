@@ -16,7 +16,7 @@ function Homepage(props) {
 
   const getData = () => {
     axios
-      .get("http://localhost:5000/photos")
+      .get("http://localhost:5000/photos") 
       .then(response => response.data)
       .then(json => {
         setData(json);
