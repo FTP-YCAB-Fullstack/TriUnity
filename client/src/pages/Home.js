@@ -6,7 +6,7 @@ import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
-import Loading from "../components/Loading"
+import Loading from "../components/Loading";
 
 function Homepage(props) {
   const [photos, setData] = useState(null);
@@ -62,8 +62,8 @@ function Homepage(props) {
   const onClicktoPatternCollection = title => {
     props.history.push({
       pathname: `/collections/${title}`
-    })
-  }
+    });
+  };
 
   const onSubmitSearch = async event => {
     event.preventDefault();
@@ -91,7 +91,9 @@ function Homepage(props) {
         onClicktoSellPhotos={onClicktoSellPhotos}
         onSubmitSearch={onSubmitSearch}
       />
-      {!searchResult.length ? null : <h1 className="font-bold p-4 flex justify-center text-2xl">Result</h1>}
+      {!searchResult.length ? null : (
+        <h1 className="font-bold p-4 flex justify-center text-2xl">Result</h1>
+      )}
       {!searchResult.length ? null : (
         <Masonry
           breakpointCols={{ default: 5, 800: 2 }}
@@ -111,16 +113,27 @@ function Homepage(props) {
       )}
       <h1 className="font-bold p-4 flex justify-center text-2xl">Collection</h1>
       <div
-        className="relative grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-auto" id="scroll"
+        className="relative grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-auto"
+        id="scroll"
       >
-      <button className="absolute bg-white right-0 h-full rounded-lg px-3 shadow-md">next</button>
+        <button className="absolute bg-white right-0 h-full rounded-lg px-3 shadow-md">
+          next
+        </button>
         {collection.map((item, index) => {
           return item.tags[0] ? (
-            <CollectionPhotos onClicktoPatternCollection={onClicktoPatternCollection} {...item} key={index} />
+            <CollectionPhotos
+              onClicktoPatternCollection={onClicktoPatternCollection}
+              {...item}
+              key={index}
+            />
           ) : null;
         })}
       </div>
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Photos on Sale</h1>
+      {!localPhotos.length ? null : (
+        <h1 className="font-bold p-4 flex justify-center text-2xl">
+          Photos on Sale
+        </h1>
+      )}
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"
@@ -136,7 +149,9 @@ function Homepage(props) {
           );
         })}
       </Masonry>
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Random Photos</h1>
+      <h1 className="font-bold p-4 flex justify-center text-2xl">
+        Random Photos
+      </h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"

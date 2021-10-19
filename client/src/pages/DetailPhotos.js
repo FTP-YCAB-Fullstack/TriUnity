@@ -179,7 +179,7 @@ function DetailPhotos(props) {
     return "404 Page Not Found";
   }
 
-  return isLoading ? (
+  return isLoading || !photos ? (
     <Loading />
   ) : (
     <div>
