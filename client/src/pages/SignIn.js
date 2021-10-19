@@ -4,15 +4,11 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import { useCookies } from "react-cookie";
 import assetSignIn from "../assets/SignIn.jpeg";
+import Swal from "sweetalert2";
 
-const SignIn = () => {
+const SignIn = props => {
   const [, setCookies] = useCookies(["token"]);
   const [label, setLabel] = useState("Login");
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    setMessage("");
-  }, [label]);
 
   const onSubmitLogin = async event => {
     event.preventDefault();
@@ -24,8 +20,17 @@ const SignIn = () => {
       .catch(error => error.response);
     if (response && response.status === 200) {
       setCookies("token", response.data.token, { path: "/" });
+      if (props.location.state) {
+        props.history.push({
+          pathname: props.location.state.redirect
+        });
+      }
     } else {
-      setMessage(response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: response.data.message
+      });
     }
   };
 
@@ -41,8 +46,17 @@ const SignIn = () => {
       .catch(error => error.response);
     if (response && response.status === 201) {
       setCookies("token", response.data.token, { path: "/" });
+      if (props.location.state) {
+        props.history.push({
+          pathname: props.location.state.redirect
+        });
+      }
     } else {
-      setMessage(response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: response.data.message
+      });
     }
   };
 
@@ -58,7 +72,9 @@ const SignIn = () => {
               className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner rounded-l-full"
               style={{
                 backgroundColor:
-                  label === "Login" ? "rgba(52, 211, 153)" : "rgba(254, 202, 202)"
+                  label === "Login"
+                    ? "rgba(52, 211, 153)"
+                    : "rgba(254, 202, 202)"
               }}
               onClick={event => setLabel(event.target.innerHTML)}
             >
@@ -78,9 +94,9 @@ const SignIn = () => {
             </li>
           </ol>
           {label === "Login" ? (
-            <Login onSubmitLogin={onSubmitLogin} message={message} />
+            <Login onSubmitLogin={onSubmitLogin} />
           ) : (
-            <Register onSubmitRegister={onSubmitRegister} message={message} />
+            <Register onSubmitRegister={onSubmitRegister} />
           )}
         </div>
       </div>

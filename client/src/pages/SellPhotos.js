@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Sellphotos from "../components/Sellphotos";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function SellPhotos(props) {
-  const [message, setMessage] = useState("");
   const [checkedFree, setCheckedFree] = useState(false);
 
   const onClickSell = async event => {
@@ -12,7 +12,10 @@ export default function SellPhotos(props) {
     const formData = new FormData();
     const image = event.target.image.files[0];
     const title = event.target.title.value;
-    const price = event.target.price.value;
+    let price;
+    if (!checkedFree) {
+      price = event.target.price.value;
+    }
     const description = event.target.description.value;
     if (
       image &&
@@ -42,17 +45,26 @@ export default function SellPhotos(props) {
           pathname: "/photos-for-sale"
         });
       } else {
-        setMessage(response.data.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: response.data.message
+        });
       }
     } else {
-      setMessage("Required to fill image, title, and price");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Required to fill image ${
+          checkedFree ? "and title" : ", title"
+        } ${checkedFree ? "" : ", and price"}`
+      });
     }
   };
   return (
     <div>
       <Sellphotos
         onClickSell={onClickSell}
-        message={message}
         checkedFree={checkedFree}
         setCheckedFree={setCheckedFree}
       />

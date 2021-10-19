@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 function DetailPhoto(props) {
   return (
@@ -26,13 +26,21 @@ function DetailPhoto(props) {
             <div className="pt-12">
               <h1 className="mb-3">
                 {props.data === undefined
-                  ? "AESTHETIC PHOTO"
-                  : props.data.title}
+                  ? "Untitle Photo"
+                  : props.data.title
+                  ? props.data.title
+                  : "Untitle Photo"}
               </h1>
               <div className="flex flex-row items-center gap-2">
                 <div className="h-12 w-12 rounded-full bg-gray-400 overflow-hidden">
                   <img
-                    src={props.data === undefined ? "" : props.data.user.image}
+                    src={
+                      props.data === undefined
+                        ? "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+                        : props.data.user.image
+                        ? props.data.user.image
+                        : "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
+                    }
                     alt="user"
                   />
                 </div>
@@ -53,15 +61,29 @@ function DetailPhoto(props) {
             </div>
 
             <div className="flex justify-end">
-              <button className="bg-red-600 hover:bg-red-400 hover:text-black text-white font-medium py-2 px-8 rounded-full">
-                <a
-                  href={`${
-                    props.data === undefined ? "#" : props.data.download
-                  }`}
-                  download="photo.png"
-                >
-                  Buy
-                </a>
+              <button
+                className="bg-red-600 py-2 px-8 rounded-full"
+                onClick={() =>
+                  props.onClickDownload(
+                    props.data === undefined ? "#" : props.data.download,
+                    props.data === undefined
+                      ? "photo-futuccrup.png"
+                      : props.data.title
+                      ? props.data.title + ".png"
+                      : "photo-futuccrup.png",
+                    props.data === undefined
+                      ? "Free"
+                      : props.data.price === undefined
+                      ? "Free"
+                      : props.data.price
+                  )
+                }
+              >
+                {props.data === undefined
+                  ? "Download"
+                  : props.data.price === undefined
+                  ? "Download"
+                  : "Buy"}
               </button>
             </div>
           </div>
