@@ -11,26 +11,6 @@ import Loading from "../components/Loading";
 import { useSelector, useDispatch } from "react-redux";
 import { setRandomPhotos } from "../redux/action";
 
-const container = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const itemAnimation = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1
-  }
-};
-
 function DetailPhotos(props) {
   const id = props.match.params.id;
   const [detailPhotos, setDetailPhotos] = useState(id);
@@ -50,8 +30,8 @@ function DetailPhotos(props) {
     setLoading(false);
   };
 
-  const getDetailPhoto = async () => {
-    await axios
+  const getDetailPhoto = () => {
+    axios
       .get(`http://localhost:5000/detailpage/${id}`)
       .then(response => response.data)
       .then(json => {
@@ -150,7 +130,7 @@ function DetailPhotos(props) {
 
   useEffect(() => {
     dispatch(setRandomPhotos);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getDetailPhoto();

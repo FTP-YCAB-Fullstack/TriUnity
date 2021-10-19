@@ -72,7 +72,6 @@ function Homepage(props) {
         setSearchResult(response.data.data);
         if (valueSearch.trim() !== "") {
           searchRef.current.scrollIntoView({ behavior: "smooth" });
-          console.log("Scroll");
         }
       }
     } catch (error) {

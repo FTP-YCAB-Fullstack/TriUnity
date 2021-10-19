@@ -2,9 +2,7 @@ import React, { Fragment } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react"
-import Keranjang from "../assets/keranjang.png"
-
+import { Menu, Transition } from "@headlessui/react";
 
 function NavbarTransparent(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
@@ -12,12 +10,6 @@ function NavbarTransparent(props) {
   const onClicktoLogin = () => {
     props.history.push({
       pathname: "/signin"
-    });
-  };
-
-  const onClicktoKeranjang = () => {
-    props.history.push({
-      pathname: "/keranjang"
     });
   };
 
@@ -40,8 +32,8 @@ function NavbarTransparent(props) {
   const onClicktoProfile = () => {
     props.history.push({
       pathname: "/profile"
-    })
-  }
+    });
+  };
 
   return (
     <nav class="w-full fixed top-0 z-50 shadow-md">
@@ -58,11 +50,8 @@ function NavbarTransparent(props) {
               <Menu>
                 {({ open }) => (
                   <Fragment>
-                    <Menu.Button
-                    className="text-white">
-                      Profile
-                    </Menu.Button>
-                    <Transition 
+                    <Menu.Button className="text-white">Profile</Menu.Button>
+                    <Transition
                       show={open}
                       enter="transform transition duration-100 ease-in"
                       enterFrom="opacity-0 scale-95"
@@ -74,16 +63,31 @@ function NavbarTransparent(props) {
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
                         <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClicktoProfile}
+                            >
+                              Profile
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClicktoPhotosForSale}
+                            >
+                              Photos for sale
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClickLogout}
+                            >
+                              Logout
+                            </p>
                           </Menu.Item>
                         </div>
-                        </Menu.Items>
+                      </Menu.Items>
                     </Transition>
                   </Fragment>
                 )}
@@ -96,7 +100,6 @@ function NavbarTransparent(props) {
           )}
         </div>
       </div>
-      
     </nav>
   );
 }
