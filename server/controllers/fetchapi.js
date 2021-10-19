@@ -142,7 +142,14 @@ class FetchApiController {
           return {
             id: "u-" + item._id,
             description: item.description,
-            url: "http://localhost:5000/image/" + item.image,
+            url:
+              "http://localhost:5000/image/" +
+              (item.price
+                ? item.image
+                    .split(".")
+                    .pop()
+                    .join("") + "-watermark.png"
+                : item.image),
             user: item.user
           };
         })
