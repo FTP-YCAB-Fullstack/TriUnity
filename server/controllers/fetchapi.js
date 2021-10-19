@@ -97,7 +97,7 @@ class FetchApiController {
             id: data.id,
             description: data.description,
             image: "http://localhost:5000/image/" + data.image,
-            price: "Rp. " + data.price,
+            price: data.price ? "Rp. " + data.price : undefined,
             title: data.title,
             user: data.user,
             download: `http://localhost:5000/image/download/${data.image}`
@@ -139,17 +139,14 @@ class FetchApiController {
       res.status(200).json({
         message: "Success geting all image local",
         data: images.map(item => {
+          const image = item.image.split(".");
+          image.pop();
           return {
             id: "u-" + item._id,
             description: item.description,
             url:
               "http://localhost:5000/image/" +
-              (item.price
-                ? item.image
-                    .split(".")
-                    .pop()
-                    .join("") + "-watermark.png"
-                : item.image),
+              (item.price ? image.join("") + "-watermark.png" : item.image),
             user: item.user
           };
         })
