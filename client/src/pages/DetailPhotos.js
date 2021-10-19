@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
 import Loading from "../components/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import { setRandomPhotos } from "../redux/action";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -30,11 +32,12 @@ const itemAnimation = {
 };
 
 function DetailPhotos(props) {
-  const [photos, setData] = useState(null);
   const id = props.match.params.id;
   const [detailPhotos, setDetailPhotos] = useState(id);
   const [isLoading, setLoading] = useState(true);
   const [cookies] = useCookies(["token"]);
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.randomPhotos);
 
   const getDownloadFromApi = async () => {
     const { data } = await axios.get(
@@ -45,15 +48,6 @@ function DetailPhotos(props) {
     const url = URL.createObjectURL(new Blob([response.data]));
     detailPhotos.data.download = url;
     setLoading(false);
-  };
-
-  const getData = async () => {
-    axios
-      .get(`http://localhost:5000/photos`)
-      .then(response => response.data)
-      .then(json => {
-        setData(json);
-      });
   };
 
   const getDetailPhoto = async () => {
@@ -155,7 +149,7 @@ function DetailPhotos(props) {
   };
 
   useEffect(() => {
-    getData();
+    dispatch(setRandomPhotos);
   }, []);
 
   useEffect(() => {
