@@ -1,12 +1,13 @@
-const getUser = user => {
-  return dispacth => {
-    dispacth({
-      type: "SET_USER",
-      payload: {
-        user
-      }
-    });
-  };
+import axios from "axios";
+
+const setRandomPhotos = async dispacth => {
+  const { data } = await axios.get("http://localhost:5000/photos");
+  dispacth({
+    type: "SET_RANDOM_PHOTOS",
+    payload: {
+      randomPhotos: data
+    }
+  });
 };
 
-export { getUser };
+export { setRandomPhotos };

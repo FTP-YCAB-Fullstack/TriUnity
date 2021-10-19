@@ -7,21 +7,15 @@ import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
 import Loading from "../components/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import { setRandomPhotos } from "../redux/action";
 
 function Homepage(props) {
-  const [photos, setData] = useState(null);
   const [collection, setCollection] = useState(null);
   const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-
-  const getData = () => {
-    axios
-      .get("http://localhost:5000/photos")
-      .then(response => response.data)
-      .then(json => {
-        setData(json);
-      });
-  };
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.randomPhotos);
 
   const getCollection = () => {
     axios
@@ -42,7 +36,7 @@ function Homepage(props) {
   };
 
   useEffect(() => {
-    getData();
+    dispatch(setRandomPhotos);
     getCollection();
     getPhotosLocal();
   }, []);
