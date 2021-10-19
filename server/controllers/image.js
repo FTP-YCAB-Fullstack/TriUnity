@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const ImageForSale = require("../models/ImageForSell");
 const { ObjectId } = require("mongoose").Types;
+const watermark = require("../utils/watermark");
 
 class Image {
   static async uploadImage(req, res, next) {
@@ -33,6 +34,11 @@ class Image {
               price,
               description
             });
+            if (price) {
+              const splitFilename = filename.split(".");
+              splitFilename.pop();
+              watermark(targetPath, splitFilename.join(""));
+            }
             res.status(201).json({
               message: "Image uploaded"
             });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
@@ -6,22 +6,17 @@ import NavbarHome from "../components/NavbarHome";
 import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
-import Loading from "../components/Loading"
+import Loading from "../components/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import { setRandomPhotos } from "../redux/action";
 
 function Homepage(props) {
-  const [photos, setData] = useState(null);
   const [collection, setCollection] = useState(null);
   const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-
-  const getData = () => {
-    axios
-      .get("http://localhost:5000/photos")
-      .then(response => response.data)
-      .then(json => {
-        setData(json);
-      });
-  };
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.randomPhotos);
+  const searchRef = useRef();
 
   const getCollection = () => {
     axios
@@ -42,7 +37,7 @@ function Homepage(props) {
   };
 
   useEffect(() => {
-    getData();
+    dispatch(setRandomPhotos);
     getCollection();
     getPhotosLocal();
   }, []);
@@ -62,19 +57,22 @@ function Homepage(props) {
   const onClicktoPatternCollection = title => {
     props.history.push({
       pathname: `/collections/${title}`
-    })
-  }
+    });
+  };
 
   const onSubmitSearch = async event => {
     event.preventDefault();
     try {
       const valueSearch = event.target.search.value;
       const response = await axios.get(
-        `http://localhost:5000/search/photos/?query=${valueSearch}`,
+        `http://localhost:5000/search/photos/?query=${valueSearch.trim()}`,
         { withCredentials: true }
       );
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
+        if (valueSearch.trim() !== "") {
+          searchRef.current.scrollIntoView({ behavior: "smooth" });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -91,7 +89,14 @@ function Homepage(props) {
         onClicktoSellPhotos={onClicktoSellPhotos}
         onSubmitSearch={onSubmitSearch}
       />
-      {!searchResult.length ? null : <h1 className="font-bold p-4 flex justify-center text-2xl">Result</h1>}
+      {!searchResult.length ? null : (
+        <h1
+          ref={searchRef}
+          className="font-bold p-4 flex justify-center text-2xl"
+        >
+          Result
+        </h1>
+      )}
       {!searchResult.length ? null : (
         <Masonry
           breakpointCols={{ default: 5, 800: 2 }}
@@ -111,16 +116,27 @@ function Homepage(props) {
       )}
       <h1 className="font-bold p-4 flex justify-center text-2xl">Collection</h1>
       <div
-        className="relative grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-auto" id="scroll"
+        className="relative grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-auto"
+        id="scroll"
       >
-      <button className="absolute bg-white right-0 h-full rounded-lg px-3 shadow-md">next</button>
+        <button className="absolute bg-white right-0 h-full rounded-lg px-3 shadow-md">
+          next
+        </button>
         {collection.map((item, index) => {
           return item.tags[0] ? (
-            <CollectionPhotos onClicktoPatternCollection={onClicktoPatternCollection} {...item} key={index} />
+            <CollectionPhotos
+              onClicktoPatternCollection={onClicktoPatternCollection}
+              {...item}
+              key={index}
+            />
           ) : null;
         })}
       </div>
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Photos on Sale</h1>
+      {!localPhotos.length ? null : (
+        <h1 className="font-bold p-4 flex justify-center text-2xl">
+          Photos on Sale
+        </h1>
+      )}
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"
@@ -136,7 +152,9 @@ function Homepage(props) {
           );
         })}
       </Masonry>
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Random Photos</h1>
+      <h1 className="font-bold p-4 flex justify-center text-2xl">
+        Random Photos
+      </h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"

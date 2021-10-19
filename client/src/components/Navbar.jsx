@@ -63,28 +63,28 @@ function Navbar(props) {
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
                         <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a
+                            <p
                               className="hover:bg-blue-400 bg-white py-2 px-5"
                               onClick={onClicktoProfile}
                             >
                               Profile
-                            </a>
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a
+                            <p
                               className="hover:bg-blue-400 bg-white py-2 px-5"
                               onClick={onClicktoPhotosForSale}
                             >
                               Photos for sale
-                            </a>
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a
+                            <p
                               className="hover:bg-blue-400 bg-white py-2 px-5"
                               onClick={onClickLogout}
                             >
                               Logout
-                            </a>
+                            </p>
                           </Menu.Item>
                         </div>
                       </Menu.Items>
