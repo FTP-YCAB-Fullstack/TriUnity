@@ -91,12 +91,16 @@ class FetchApiController {
         });
       } else if (id[0] === "u") {
         const data = await ImageForSale.findById(ObjectId(id.slice(2)));
+        const image = data.image.split(".");
+        image.pop();
         res.status(200).json({
           message: "Success geting photo from local",
           data: {
             id: data.id,
             description: data.description,
-            image: "http://localhost:5000/image/" + data.image,
+            image:
+              "http://localhost:5000/image/" +
+              (data.price ? image.join("") + "-watermark.png" : data.image),
             price: data.price ? "Rp. " + data.price : undefined,
             title: data.title,
             user: data.user,

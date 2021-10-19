@@ -1,11 +1,16 @@
 const jimp = require("jimp");
+const path = require("path");
 
 // const originalImage = "./1634571750425-photo.png";
-const orignalLogo = "../data/assets/logo.png";
+const orignalLogo = path.join(__dirname, "../data/assets/logo.png");
 const logoMarginPercentage = 5;
 
 const watermarkImage = async (originalImage, originalName) => {
-  const filename = originalName + "-watermark.png";
+  const filename = path.join(
+    __dirname,
+    "data/image",
+    originalName + "-watermark.png"
+  );
 
   const [image, logo] = await Promise.all([
     jimp.read(originalImage),
