@@ -81,7 +81,7 @@ const SignIn = props => {
               Login
             </li>
             <li
-              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner text-center rounded-r-full"
+              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner rounded-r-full"
               style={{
                 backgroundColor:
                   label === "Register"
