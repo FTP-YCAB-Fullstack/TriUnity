@@ -54,13 +54,18 @@ function Navbar(props) {
   }, [lastYPos]);
 
   return (
-    <motion.div 
-      className={"w-full fixed top-0 z-50 shadow-md " + (shouldShowActions == 0 ? "block" : "hidden")}
-      animate={{opacity: shouldShowActions ? 0 : 1,
-                backgroundColor: shouldShowActions ? "transparent" : "red",}}
-      initial={{backgroundColor: "transparent"}}
-      transition={{opacity: { duration: 0.2 }}} 
-      >
+    <motion.div
+      className={
+        "w-full fixed top-0 z-50 shadow-md " +
+        (shouldShowActions === 0 ? "block" : "hidden")
+      }
+      animate={{
+        opacity: shouldShowActions ? 0 : 1,
+        backgroundColor: shouldShowActions ? "transparent" : "red"
+      }}
+      initial={{ backgroundColor: "transparent" }}
+      transition={{ opacity: { duration: 0.2 } }}
+    >
       <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center bg-red-600">
         <img
           className="cursor-pointer w-32"
@@ -87,13 +92,28 @@ function Navbar(props) {
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
                         <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClicktoProfile}
+                            >
+                              Profile
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClicktoPhotosForSale}
+                            >
+                              Photos for sale
+                            </p>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
+                            <p
+                              className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5"
+                              onClick={onClickLogout}
+                            >
+                              Logout
+                            </p>
                           </Menu.Item>
                         </div>
                       </Menu.Items>

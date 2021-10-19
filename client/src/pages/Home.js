@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
@@ -7,21 +7,16 @@ import Header from "../components/Header";
 import Masonry from "react-masonry-css";
 import NavbarTransparent from "../components/NavbarTransparent";
 import Loading from "../components/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import { setRandomPhotos } from "../redux/action";
 
 function Homepage(props) {
-  const [photos, setData] = useState(null);
   const [collection, setCollection] = useState(null);
   const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-
-  const getData = () => {
-    axios
-      .get("http://localhost:5000/photos")
-      .then(response => response.data)
-      .then(json => {
-        setData(json);
-      });
-  };
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.randomPhotos);
+  const searchRef = useRef();
 
   const getCollection = () => {
     axios
@@ -42,7 +37,7 @@ function Homepage(props) {
   };
 
   useEffect(() => {
-    getData();
+    dispatch(setRandomPhotos);
     getCollection();
     getPhotosLocal();
   }, []);
@@ -70,11 +65,14 @@ function Homepage(props) {
     try {
       const valueSearch = event.target.search.value;
       const response = await axios.get(
-        `http://localhost:5000/search/photos/?query=${valueSearch}`,
+        `http://localhost:5000/search/photos/?query=${valueSearch.trim()}`,
         { withCredentials: true }
       );
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
+        if (valueSearch.trim() !== "") {
+          searchRef.current.scrollIntoView({ behavior: "smooth" });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -92,7 +90,12 @@ function Homepage(props) {
         onSubmitSearch={onSubmitSearch}
       />
       {!searchResult.length ? null : (
-        <h1 className="font-bold p-4 flex justify-center text-2xl">Result</h1>
+        <h1
+          ref={searchRef}
+          className="font-bold p-4 flex justify-center text-2xl"
+        >
+          Result
+        </h1>
       )}
       {!searchResult.length ? null : (
         <Masonry
