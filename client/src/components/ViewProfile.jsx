@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ViewProfile(props) {
     return (
-        <div class=" bg-white w-full flex flex-col items-center justify-center">
+        <div class=" bg-white w-full flex flex-col items-center justify-center rounded-lg border-2 mb-8">
                   <p className="text-start row">
                     First Name : {props.firstName ? props.firstName : ""}
                   </p>
