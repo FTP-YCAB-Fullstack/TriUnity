@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 export default function SellPhotos(props) {
   const [checkedFree, setCheckedFree] = useState(false);
-  const [files, setFiles] = useState([])
+  const [files, setFiles] = useState([]);
 
   const onClickSell = async event => {
     event.preventDefault();
@@ -34,7 +34,7 @@ export default function SellPhotos(props) {
         formData.append("description", description);
       }
       const response = await axios
-        .post("http://localhost:5000/image", formData, {
+        .post("https://fierce-headland-22833.herokuapp.com/image", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           },
@@ -68,8 +68,8 @@ export default function SellPhotos(props) {
         onClickSell={onClickSell}
         checkedFree={checkedFree}
         setCheckedFree={setCheckedFree}
-        setFiles = {setFiles}
-        files = {files}
+        setFiles={setFiles}
+        files={files}
       />
     </div>
   );

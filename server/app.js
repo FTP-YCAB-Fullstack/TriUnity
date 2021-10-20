@@ -8,12 +8,10 @@ const mainRouter = require("./routes");
 const handlerError = require("./middlewares/handlerError");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const port = process.env.SERVER_PORT;
+const port = process.env.PORT || 3000;
 const corsConfig = {
-  credentials: true,
-  origin: process.env.ORIGIN
+  credentials: true
 };
-const axios = require("axios");
 
 app
   .use(cors(corsConfig))

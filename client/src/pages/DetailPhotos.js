@@ -32,7 +32,7 @@ function DetailPhotos(props) {
 
   const getDetailPhoto = () => {
     axios
-      .get(`http://localhost:5000/detailpage/${id}`)
+      .get(`https://fierce-headland-22833.herokuapp.com/detailpage/${id}`)
       .then(response => response.data)
       .then(json => {
         setDetailPhotos(json);
@@ -67,7 +67,7 @@ function DetailPhotos(props) {
       } else {
         const response = await axios
           .post(
-            "http://localhost:5000/payment",
+            "https://fierce-headland-22833.herokuapp.com/payment",
             { price: +price.split(" ")[1], id: id.slice(2) },
             { withCredentials: true }
           )
