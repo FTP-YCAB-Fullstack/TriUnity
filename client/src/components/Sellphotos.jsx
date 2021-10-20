@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
+import { FilePond, File, registerPlugin } from 'react-filepond'
+import 'filepond/dist/filepond.min.css'
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 function Sellphotos(props) {
+  
   return (
     <div>
       <Navbar />
@@ -31,7 +39,14 @@ function Sellphotos(props) {
             name="description"
             placeholder="insert description in here..."
           ></textarea>
-          <input className="rounded m-4 p-2" type="file" name="image" />
+          {/* <input className="rounded m-4 p-2" type="file" name="image" /> */}
+          <FilePond 
+          files={props.files}
+          onupdatefiles={props.setFiles}
+          allowMultiple={true}
+          maxFiles={3}
+          name="files"
+          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'/>
           <div>
             <input
               className="m-4 p-2"
