@@ -91,13 +91,17 @@ class FetchApiController {
         });
       } else if (id[0] === "u") {
         const data = await ImageForSale.findById(ObjectId(id.slice(2)));
+        const image = data.image.split(".");
+        image.pop();
         res.status(200).json({
           message: "Success geting photo from local",
           data: {
             id: data.id,
             description: data.description,
-            image: "http://localhost:5000/image/" + data.image,
-            price: "Rp. " + data.price,
+            image:
+              "http://localhost:5000/image/" +
+              (data.price ? image.join("") + "-watermark.png" : data.image),
+            price: data.price ? "Rp. " + data.price : undefined,
             title: data.title,
             user: data.user,
             download: `http://localhost:5000/image/download/${data.image}`
@@ -139,10 +143,14 @@ class FetchApiController {
       res.status(200).json({
         message: "Success geting all image local",
         data: images.map(item => {
+          const image = item.image.split(".");
+          image.pop();
           return {
             id: "u-" + item._id,
             description: item.description,
-            url: "http://localhost:5000/image/" + item.image,
+            url:
+              "http://localhost:5000/image/" +
+              (item.price ? image.join("") + "-watermark.png" : item.image),
             user: item.user
           };
         })

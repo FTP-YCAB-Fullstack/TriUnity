@@ -54,13 +54,18 @@ function Navbar(props) {
   }, [lastYPos]);
 
   return (
-    <motion.div 
-      className={"w-full fixed top-0 z-50 shadow-md " + (shouldShowActions == 0 ? "block" : "hidden")}
-      animate={{opacity: shouldShowActions ? 0 : 1,
-                backgroundColor: shouldShowActions ? "transparent" : "red",}}
-      initial={{backgroundColor: "transparent"}}
-      transition={{opacity: { duration: 0.2 }}} 
-      >
+    <motion.div
+      className={
+        "w-full fixed top-0 z-50 shadow-md " +
+        (shouldShowActions === 0 ? "block" : "hidden")
+      }
+      animate={{
+        opacity: shouldShowActions ? 0 : 1,
+        backgroundColor: shouldShowActions ? "transparent" : "red"
+      }}
+      initial={{ backgroundColor: "transparent" }}
+      transition={{ opacity: { duration: 0.2 } }}
+    >
       <div className="flex justify-between md:gap-5 py-3 px-4 md:px-8 items-center bg-red-600">
         <img
           className="cursor-pointer w-32"

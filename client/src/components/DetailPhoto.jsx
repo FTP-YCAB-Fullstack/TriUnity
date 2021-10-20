@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 function DetailPhoto(props) {
   return (
@@ -9,7 +8,7 @@ function DetailPhoto(props) {
           <img
             src={props.data === undefined ? "" : props.data.image}
             alt="foto gue"
-            className="w-full md:rounded-bl-3xl"
+            className="w-full rounded-bl-3xl pointer-events-none"
           />
         </div>
         <div className="w-full h-full bg-white p-7 flex flex-col">
@@ -42,6 +41,7 @@ function DetailPhoto(props) {
                         : "https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png"
                     }
                     alt="user"
+                    className="pointer-events-none"
                   />
                 </div>
                 <h1>

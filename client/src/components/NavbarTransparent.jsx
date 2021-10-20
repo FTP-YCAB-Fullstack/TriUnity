@@ -2,9 +2,7 @@ import React, { Fragment } from "react";
 import AssetLogo from "../assets/logo.png";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react"
-import Keranjang from "../assets/keranjang.png"
-
+import { Menu, Transition } from "@headlessui/react";
 
 function NavbarTransparent(props) {
   const [cookies, , removeCookies] = useCookies(["token"]);
@@ -34,8 +32,8 @@ function NavbarTransparent(props) {
   const onClicktoProfile = () => {
     props.history.push({
       pathname: "/profile"
-    })
-  }
+    });
+  };
 
   return (
     <nav class="w-full fixed top-0 z-50">
@@ -52,11 +50,8 @@ function NavbarTransparent(props) {
               <Menu>
                 {({ open }) => (
                   <Fragment>
-                    <Menu.Button
-                    className="text-white">
-                      Profile
-                    </Menu.Button>
-                    <Transition 
+                    <Menu.Button className="text-white">Profile</Menu.Button>
+                    <Transition
                       show={open}
                       enter="transform transition duration-100 ease-in"
                       enterFrom="opacity-0 scale-95"
@@ -93,7 +88,6 @@ function NavbarTransparent(props) {
           )}
         </div>
       </div>
-      
     </nav>
   );
 }

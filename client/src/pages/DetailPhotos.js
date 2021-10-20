@@ -8,33 +8,16 @@ import Swal from "sweetalert2";
 import { useCookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
 import Loading from "../components/Loading";
-
-const container = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const itemAnimation = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1
-  }
-};
+import { useSelector, useDispatch } from "react-redux";
+import { setRandomPhotos } from "../redux/action";
 
 function DetailPhotos(props) {
-  const [photos, setData] = useState(null);
   const id = props.match.params.id;
   const [detailPhotos, setDetailPhotos] = useState(id);
   const [isLoading, setLoading] = useState(true);
   const [cookies] = useCookies(["token"]);
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.randomPhotos);
 
   const getDownloadFromApi = async () => {
     const { data } = await axios.get(
@@ -47,17 +30,8 @@ function DetailPhotos(props) {
     setLoading(false);
   };
 
-  const getData = async () => {
+  const getDetailPhoto = () => {
     axios
-      .get(`http://localhost:5000/photos`)
-      .then(response => response.data)
-      .then(json => {
-        setData(json);
-      });
-  };
-
-  const getDetailPhoto = async () => {
-    await axios
       .get(`http://localhost:5000/detailpage/${id}`)
       .then(response => response.data)
       .then(json => {
@@ -155,8 +129,8 @@ function DetailPhotos(props) {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    dispatch(setRandomPhotos);
+  }, [dispatch]);
 
   useEffect(() => {
     getDetailPhoto();
