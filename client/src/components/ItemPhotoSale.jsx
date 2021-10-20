@@ -3,9 +3,10 @@ import React from "react";
 const ItemPhotoSale = props => {
   const urlPhoto = "http://localhost:5000/image/";
   return (
-    <div className="flex m-4">
+    <div>
+      <div className="flex h-52 bg-red-200 rounded-xl m-4 p-4 px-6 shadow-lg">
       <img
-        className="max-w-xs p-4"
+        className="max-w-xs rounded-lg"
         src={urlPhoto + props.image}
         alt="for sale"
       />
@@ -23,6 +24,7 @@ const ItemPhotoSale = props => {
           className="fa fa-trash fa-lg cursor-pointer hover:text-red-600"
         ></i>
       </div>
+    </div>
     </div>
   );
 };

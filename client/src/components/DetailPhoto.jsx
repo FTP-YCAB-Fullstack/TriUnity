@@ -2,7 +2,7 @@ import React from "react";
 
 function DetailPhoto(props) {
   return (
-    <div className="h-2xl md:h-screen p-5 flex justify-center items-center">
+    <div className="h-2xl md:h-screen p-5 mt-16 flex justify-center items-center">
       <div className="max-h-full w-4/5 mb-12 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row shadow-2xl">
         <div className="w-full h-full flex items-center bg-yellow-600">
           <img

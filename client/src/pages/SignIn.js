@@ -66,27 +66,27 @@ const SignIn = props => {
         <div className="bg-red-600 h-full rounded-l-2xl w-1/2 overflow-hidden">
           <img className="w-full" src={assetSignIn} alt="SignIn" />
         </div>
-        <div className="flex flex-col items-center w-1/2">
+        <div className="flex flex-col items-center w-1/2 p-4">
           <ol className="flex justify-center list-none w-full my-4">
             <li
-              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner rounded-l-full"
+              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner text-white font-bold rounded-l-full"
               style={{
                 backgroundColor:
                   label === "Login"
-                    ? "rgba(52, 211, 153)"
-                    : "rgba(254, 202, 202)"
+                    ? "rgba(255,0,0)"
+                    : "rgba(178,34,34)"
               }}
               onClick={event => setLabel(event.target.innerHTML)}
             >
               Login
             </li>
             <li
-              className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner text-center rounded-r-full"
+              className="cursor-pointer p-4 w-2/5 hover:shadow-inner text-center text-white font-bold rounded-r-full"
               style={{
                 backgroundColor:
                   label === "Register"
-                    ? "rgba(52, 211, 153)"
-                    : "rgba(254, 202, 202)"
+                    ? "rgba(255,0,0)"
+                    : "rgba(178,34,34)"
               }}
               onClick={event => setLabel(event.target.innerHTML)}
             >
