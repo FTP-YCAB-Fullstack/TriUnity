@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import Sellphotos from "../components/Sellphotos";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function SellPhotos(props) {
   const [checkedFree, setCheckedFree] = useState(false);
+  const [files, setFiles] = useState([])
 
   const onClickSell = async event => {
     event.preventDefault();
 
     const formData = new FormData();
-    const image = event.target.image.files[0];
+    const image = files[0].file;
     const title = event.target.title.value;
     let price;
     if (!checkedFree) {
@@ -67,6 +68,8 @@ export default function SellPhotos(props) {
         onClickSell={onClickSell}
         checkedFree={checkedFree}
         setCheckedFree={setCheckedFree}
+        setFiles = {setFiles}
+        files = {files}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RandomPhotos from "../components/RandomPhotos";
 import CollectionPhotos from "../components/CollectionPhotos";
 import axios from "axios";
@@ -13,6 +13,7 @@ function Homepage(props) {
   const [collection, setCollection] = useState(null);
   const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
+  const selection = useRef(null)
 
   const getData = () => {
     axios
@@ -52,6 +53,19 @@ function Homepage(props) {
       pathname: "/sell"
     });
   };
+
+  const scrollHandler = () => {
+    if(selection.current) {
+      const maxWidth  = selection.current.scrollWidth
+      const currentScroll = selection.current.scrollLeft
+      selection.current.scrollTo(currentScroll + (maxWidth / 4),0)
+      console.log(currentScroll, maxWidth, selection.current.clientWidth)
+      if(currentScroll + selection.current.clientWidth == maxWidth){
+        selection.current.scrollTo(0,0)
+        console.log('ini harusnya balik ke awal')
+      }
+    }
+  }
 
   const onClicktoDetailPhotos = id => {
     props.history.push({
@@ -95,7 +109,7 @@ function Homepage(props) {
       {!searchResult.length ? null : (
         <Masonry
           breakpointCols={{ default: 5, 800: 2 }}
-          className="my-masonry-grid mx-12 my-7"
+          className="my-masonry-grid  mx-4 md:mx-12 my-7"
           columnClassName="my-masonry-grid_column"
         >
           {searchResult.map((item, index) => {
@@ -109,33 +123,19 @@ function Homepage(props) {
           })}
         </Masonry>
       )}
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Collection</h1>
-      <div
-        className="relative grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-auto" id="scroll"
-      >
-      <button className="absolute bg-white right-0 h-full rounded-lg px-3 shadow-md">next</button>
-        {collection.map((item, index) => {
-          return item.tags[0] ? (
-            <CollectionPhotos onClicktoPatternCollection={onClicktoPatternCollection} {...item} key={index} />
-          ) : null;
-        })}
-      </div>
       <h1 className="font-bold p-4 flex justify-center text-2xl">Photos on Sale</h1>
-      <Masonry
-        breakpointCols={{ default: 5, 800: 2 }}
-        className="my-masonry-grid mx-12 my-7"
-        columnClassName="my-masonry-grid_column"
-      >
-        {localPhotos.map((item, index) => {
-          return (
-            <RandomPhotos
-              onClicktoDetailPhotos={onClicktoDetailPhotos}
-              {...item}
-              key={index}
-            />
-          );
-        })}
-      </Masonry>
+      <div className="relative">
+        <button className="absolute bg-red-600 right-0 rounded-lg px-3 shadow-md " onClick={scrollHandler}>next</button>
+        <div
+          className="grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-hidden" ref={selection} style={{scrollBehavior: 'smooth'}}
+        >
+          {localPhotos.map((item, index) => {
+            return (
+              <CollectionPhotos onClicktoPatternCollection={onClicktoPatternCollection} {...item} key={index} />
+            );
+          })}
+        </div>
+      </div>
       <h1 className="font-bold p-4 flex justify-center text-2xl">Random Photos</h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}

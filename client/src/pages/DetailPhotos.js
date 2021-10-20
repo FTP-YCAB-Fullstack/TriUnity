@@ -179,7 +179,7 @@ function DetailPhotos(props) {
     return "404 Page Not Found";
   }
 
-  return isLoading ? (
+  return isLoading || !photos ? (
     <Loading />
   ) : (
     <div>
@@ -187,7 +187,7 @@ function DetailPhotos(props) {
       <DetailPhoto {...{ ...detailPhotos, id, onClickDownload }} />
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
-        className="my-masonry-grid mx-12 my-7"
+        className="my-masonry-grid mx-4 md:mx-12 my-7"
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((item, index) => {

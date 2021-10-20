@@ -4,8 +4,10 @@ import background from "../assets/background.png";
 function Header(props) {
   return (
     <header>
-        <div className="w-full h-screen flex flex-col justify-center items-center relative" >
-          <img className="absolute flex flex-end w-full h-screen filter brightness-50" alt="background" src={background}/>
+        <div className="w-full h-screen flex flex-col justify-center items-center relative">
+          <div className="relative h-full w-full flex justify-center items-center">
+            <img className="absolute flex flex-end h-full w-auto filter brightness-50" alt="background" src={background}/>
+          </div>
           <div className="absolute w-full h-full flex items-center flex-col justify-center">
             <h1 className="text-4xl text-center w-2/5 font-black text-white">
               Sell ​​photos without worrying about plagiarism

@@ -85,15 +85,18 @@ function Navbar(props) {
                       leaveTo="opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute h-7 flex justify-end py-4 right-0">
-                        <div className="bg-white flex flex-col w-48 h-36 py-2 shadow-lg rounded-lg">
+                        <div className="bg-white flex flex-col w-48 h-52 py-2 shadow-lg rounded-lg">
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoProfile}>Profile</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-3 px-5" onClick={onClicktoHome}>Home</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-3 px-5" onClick={onClicktoProfile}>Profile</a>
                           </Menu.Item>
                           <Menu.Item>
-                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-2 px-5" onClick={onClickLogout}>Logout</a>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-3 px-5" onClick={onClicktoPhotosForSale}>Photos for sale</a>
+                          </Menu.Item>
+                          <Menu.Item>
+                            <a className="hover:bg-blue-400 cursor-pointer bg-white py-3 px-5" onClick={onClickLogout}>Logout</a>
                           </Menu.Item>
                         </div>
                       </Menu.Items>
