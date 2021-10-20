@@ -11,22 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { setRandomPhotos } from "../redux/action";
 
 function Homepage(props) {
-  const [collection, setCollection] = useState(null);
   const [localPhotos, setLocalPhotos] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-  const selection = useRef(null)
+  const selection = useRef(null);
   const dispatch = useDispatch();
   const photos = useSelector(state => state.randomPhotos);
   const searchRef = useRef();
-
-  const getCollection = () => {
-    axios
-      .get("http://localhost:5000/collections")
-      .then(response => response.data)
-      .then(json => {
-        setCollection(json);
-      });
-  };
 
   const getPhotosLocal = () => {
     axios
@@ -39,7 +29,6 @@ function Homepage(props) {
 
   useEffect(() => {
     dispatch(setRandomPhotos);
-    getCollection();
     getPhotosLocal();
   }, []);
 
@@ -50,17 +39,15 @@ function Homepage(props) {
   };
 
   const scrollHandler = () => {
-    if(selection.current) {
-      const maxWidth  = selection.current.scrollWidth
-      const currentScroll = selection.current.scrollLeft
-      selection.current.scrollTo(currentScroll + (maxWidth / 4),0)
-      console.log(currentScroll, maxWidth, selection.current.clientWidth)
-      if(currentScroll + selection.current.clientWidth == maxWidth){
-        selection.current.scrollTo(0,0)
-        console.log('ini harusnya balik ke awal')
+    if (selection.current) {
+      const maxWidth = selection.current.scrollWidth;
+      const currentScroll = selection.current.scrollLeft;
+      selection.current.scrollTo(currentScroll + maxWidth / 4, 0);
+      if (currentScroll + selection.current.clientWidth == maxWidth) {
+        selection.current.scrollTo(0, 0);
       }
     }
-  }
+  };
 
   const onClicktoDetailPhotos = id => {
     props.history.push({
@@ -93,7 +80,7 @@ function Homepage(props) {
     }
   };
 
-  return !photos || !collection || !localPhotos ? (
+  return !photos || !localPhotos ? (
     <Loading />
   ) : (
     <div>
@@ -128,20 +115,35 @@ function Homepage(props) {
           })}
         </Masonry>
       )}
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Photos on Sale</h1>
+      <h1 className="font-bold p-4 flex justify-center text-2xl">
+        Photos on Sale
+      </h1>
       <div className="relative">
-        <button className="absolute bg-red-600 right-0 rounded-lg px-3 shadow-md " onClick={scrollHandler}>next</button>
+        <button
+          className="absolute bg-red-600 right-0 rounded-lg px-3 shadow-md "
+          onClick={scrollHandler}
+        >
+          next
+        </button>
         <div
-          className="grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-hidden" ref={selection} style={{scrollBehavior: 'smooth'}}
+          className="grid grid-rows-1 grid-flow-col gap-4 pr-12 mt-4 px-8 ml-3 overflow-x-hidden"
+          ref={selection}
+          style={{ scrollBehavior: "smooth" }}
         >
           {localPhotos.map((item, index) => {
             return (
-              <CollectionPhotos onClicktoPatternCollection={onClicktoPatternCollection} {...item} key={index} />
+              <CollectionPhotos
+                onClicktoDetailPhotos={onClicktoDetailPhotos}
+                {...item}
+                key={index}
+              />
             );
           })}
         </div>
       </div>
-      <h1 className="font-bold p-4 flex justify-center text-2xl">Random Photos</h1>
+      <h1 className="font-bold p-4 flex justify-center text-2xl">
+        Random Photos
+      </h1>
       <Masonry
         breakpointCols={{ default: 5, 800: 2 }}
         className="my-masonry-grid mx-12 my-7"

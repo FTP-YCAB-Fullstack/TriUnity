@@ -115,7 +115,7 @@ function DetailPhotos(props) {
             }
           });
         } else {
-          console.log(response.data);
+          console.log(response);
         }
       }
     } else {

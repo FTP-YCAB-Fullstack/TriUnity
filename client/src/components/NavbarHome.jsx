@@ -57,7 +57,7 @@ function Navbar(props) {
     <motion.div
       className={
         "w-full fixed top-0 z-50 shadow-md " +
-        (shouldShowActions === 0 ? "block" : "hidden")
+        (shouldShowActions === false ? "block" : "hidden")
       }
       animate={{
         opacity: shouldShowActions ? 0 : 1,

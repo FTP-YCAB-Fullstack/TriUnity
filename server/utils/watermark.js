@@ -3,12 +3,12 @@ const path = require("path");
 
 // const originalImage = "./1634571750425-photo.png";
 const orignalLogo = path.join(__dirname, "../data/assets/logo.png");
-const logoMarginPercentage = 5;
+const logoMarginPercentage = 10;
 
 const watermarkImage = async (originalImage, originalName) => {
   const filename = path.join(
     __dirname,
-    "data/image",
+    "../data/image",
     originalName + "-watermark.png"
   );
 
