@@ -56,18 +56,18 @@ console.log(_id,"edit")
       <Navbar/>
       <div>
         <div>
-          <div class="h-screen bg-gray-200  dark:bg-gray-950   flex flex-wrap items-center  justify-center rounded-lg">
-            <div class="container lg:1/2 xl:11/3 sm:w-full md:2/2  shadow-lg transform duration-250 easy-in-out bg-white rounded-lg">
+          <div class="h-auto bg-gray-200 flex flex-wrap items-center justify-center rounded-lg">
+            <div class="container lg:1/2 xl:11/3 sm:w-full md:2/2 transform duration-250 easy-in-out bg-gray-100  border-blue-300 rounded-lg">
               <div class=" h-100 overflow-hidden row-span-3" >
                 <img
-                  class="w-full bg-white rounded-lg"
+                  class="w-full bg-white rounded-t-lg"
                   src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80"
                   alt=""
                 />
               </div>
-              <div class="flex justify-center px-6 -mt-20">
+              <div class="flex justify-center px-6 -mt-20 bg-gray-100">
                 <img
-                  class="box-content h-32 w-50 p-4 bg-gray-300 mx-auto rounded-full flex-justify-center  "
+                  class="box-content h-32 w-50 p-4 bg-gray-300 mx-auto rounded-full flex-justify-center bg-gray-100"
                   src={
                     data.image
                       ? data.image
@@ -76,7 +76,7 @@ console.log(_id,"edit")
                   alt=""
                 />
               </div>
-              <div class=" ">
+              <div class="bg-gray-100">
                 <div className="flex flex-row justify-end align-end">
                   <header className="mr-4">
                     <span onClick={() => setEdit(true)}>
