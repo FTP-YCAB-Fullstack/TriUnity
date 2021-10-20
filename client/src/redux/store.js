@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import userReducer from "./reducer/user";
+import randomPhotos from "./reducer/random-photos";
 
 const combineReducer = combineReducers({
-  user: userReducer
+  randomPhotos
 });
 
 const store = createStore(combineReducer, applyMiddleware(thunk));

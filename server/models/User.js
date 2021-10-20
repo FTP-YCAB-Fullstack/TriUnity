@@ -32,7 +32,16 @@ const User = new Schema(
           msg: "Password must have numbers, uppercase and lowercase letters"
         }
       ]
-    }
+    },
+    address: {
+      type: String
+    },
+    description: {
+      type: String
+    },
+    image: {
+      type: String
+    },
   },
   {
     versionKey: false
