@@ -12,7 +12,6 @@ import Homepage from "./pages/Home";
 import SellPhotos from "./pages/SellPhotos";
 import DetailPhotos from "./pages/DetailPhotos";
 import PhotosForSale from "./pages/PhotosForSale";
-import CollectionPage from "./pages/CollectionPage";
 
 const Main = () => {
   return (
@@ -34,11 +33,6 @@ const Main = () => {
               exact
               component={DetailPhotos}
             />
-            <PublicRoute
-              onlyPublic={false}
-              path="/collections/:title"
-              exact
-              component={CollectionPage}
             />
             <PrivateRoute
               path="/photos-for-sale"
