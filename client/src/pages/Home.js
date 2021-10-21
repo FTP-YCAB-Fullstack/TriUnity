@@ -120,7 +120,7 @@ function Homepage(props) {
       </h1>
       <div className="relative">
         <button
-          className="absolute bg-green-500 bottom-0 right-0 rounded-lg px-3 shadow-md text-white font-medium"
+          className="absolute bg-white bottom-0 h-full rounded-l-xl right-0 px-3 shadow-md text-black font-medium"
           onClick={scrollHandler}
         >
           next

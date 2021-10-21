@@ -1,12 +1,16 @@
 import React from "react";
-import background from "../assets/background.png";
+import background from "../assets/background2.jpg";
+import blend1 from "../assets/blend.jpg"
+import blend2 from "../assets/blend2.jpg"
+import blend3 from "../assets/blend3.png"
 
 function Header(props) {
   return (
     <header>
         <div className="w-full h-screen flex flex-col justify-center items-center relative">
-          <div className="relative h-full w-full flex justify-center items-center">
-            <img className="absolute flex flex-end h-full w-auto filter brightness-50" alt="background" src={background}/>
+          <div className="h-full w-full flex justify-center items-center overflow-hidden" style={{backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat", backgroundPosition: 'center', backgroundSize: '1920px 1080px', filter: 'brightness(50%)'}}>
+            {/* <img className="flex filter brightness-50" alt="background" src={background}/> */}
+            <div className="h-full"></div>
           </div>
           <div className="absolute w-full h-full flex items-center flex-col justify-center">
             <h1 className="text-4xl text-center w-2/5 font-black text-white">

@@ -4,7 +4,7 @@ function DetailPhoto(props) {
   return (
     <div className="h-2xl md:h-screen p-5 mt-16 flex justify-center items-center">
       <div className="max-h-full w-4/5 mb-12 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row shadow-2xl">
-        <div className="w-full h-full flex items-center bg-yellow-600">
+        <div className="w-full h-full flex items-center">
           <img
             src={props.data === undefined ? "" : props.data.image}
             alt="foto gue"
