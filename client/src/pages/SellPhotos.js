@@ -41,7 +41,7 @@ export default function SellPhotos(props) {
           withCredentials: true
         })
         .catch(error => error.response);
-      if (response.status === 201) {
+      if (response && response.status === 201) {
         props.history.replace({
           pathname: "/photos-for-sale"
         });
@@ -49,7 +49,7 @@ export default function SellPhotos(props) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: response.data.message
+          text: response || "Internal Server Error"
         });
       }
     } else {

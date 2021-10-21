@@ -8,9 +8,11 @@ const mainRouter = require("./routes");
 const handlerError = require("./middlewares/handlerError");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
+
 const corsConfig = {
-  credentials: true
+  credentials: true,
+  origin: process.env.ORIGIN
 };
 
 app

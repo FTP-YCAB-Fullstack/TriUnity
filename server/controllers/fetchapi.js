@@ -99,12 +99,12 @@ class FetchApiController {
             id: data.id,
             description: data.description,
             image:
-              "http://localhost:5000/image/" +
+              "https://fierce-headland-22833.herokuapp.com/image/" +
               (data.price ? image.join("") + "-watermark.png" : data.image),
             price: data.price ? "Rp. " + data.price : undefined,
             title: data.title,
             user: data.user,
-            download: `http://localhost:5000/image/download/${data.image}`
+            download: `https://fierce-headland-22833.herokuapp.com/image/download/${data.image}`
           }
         });
       } else {
@@ -149,7 +149,7 @@ class FetchApiController {
             id: "u-" + item._id,
             description: item.description,
             url:
-              "http://localhost:5000/image/" +
+              "https://fierce-headland-22833.herokuapp.com/image/" +
               (item.price ? image.join("") + "-watermark.png" : item.image),
             user: item.user
           };
