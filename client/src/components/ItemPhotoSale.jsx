@@ -4,9 +4,9 @@ const ItemPhotoSale = props => {
   const urlPhoto = "http://localhost:5000/image/";
   return (
     <div>
-      <div className="flex h-full md:flex-row flex-col bg-red-200 rounded-xl m-4 p-4 px-6 shadow-lg justify-center items-center">
+      <div className="flex h-full md:h-72 md:flex-row flex-col bg-red-200 rounded-xl m-4 p-4 px-6 shadow-lg justify-center items-center">
       <img
-        className="max-w-xs rounded-lg"
+        className="max-w-xs rounded-lg h-full"
         src={urlPhoto + props.image}
         alt="for sale"
       />
