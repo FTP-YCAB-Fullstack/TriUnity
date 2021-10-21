@@ -13,7 +13,7 @@ const midtrans = require("./midtrans");
 mainRouter.use(FetchRouter);
 mainRouter.use(signInRouter);
 
-mainRouter.use(authentication, authorization);
+mainRouter.use(authentication).use(authorization);
 mainRouter.use(midtrans);
 mainRouter.use(imageRouter);
 mainRouter.use(Profile);

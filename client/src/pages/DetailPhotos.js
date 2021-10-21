@@ -69,7 +69,11 @@ function DetailPhotos(props) {
           .post(
             "https://fierce-headland-22833.herokuapp.com/payment",
             { price: +price.split(" ")[1], id: id.slice(2) },
-            { withCredentials: true }
+            {
+              headers: {
+                token: cookies.token
+              }
+            }
           )
           .catch(error => error.response);
         if (response && response.status === 201) {

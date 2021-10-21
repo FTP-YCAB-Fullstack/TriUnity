@@ -6,15 +6,19 @@ import Swal from "sweetalert2";
 import Loading from "../components/Loading";
 import backImage from "../assets/back.png";
 import plusImage from "../assets/plus.svg";
+import { useCookies } from "react-cookie";
 
 const PhotosForSale = props => {
   const [photos, setPhotos] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [cookies] = useCookies(["token"]);
 
   const getPhotos = async () => {
     const response = await axios
       .get("https://fierce-headland-22833.herokuapp.com/image/for-sale", {
-        withCredentials: true
+        headers: {
+          token: cookies.token
+        }
       })
       .catch(error => error.response);
     if (response && response.status === 200) {
@@ -54,7 +58,9 @@ const PhotosForSale = props => {
           .delete(
             `https://fierce-headland-22833.herokuapp.com/image/for-sale/${image}`,
             {
-              withCredentials: true
+              headers: {
+                token: cookies.token
+              }
             }
           )
           .catch(error => error.response);

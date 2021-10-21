@@ -3,14 +3,20 @@ import axios from "axios";
 import Profilecomponent from "../components/Profile";
 import ViewProfile from "../components/ViewProfile";
 import Navbar from "../components/Navbar";
+import { useCookies } from "react-cookie";
+import Loading from "../components/Loading";
 
 function Profile() {
   const [data, setData] = useState({});
   const [isEdit, setEdit] = useState(false);
+  const [cookies] = useCookies(["token"]);
+
   const getData = () => {
     axios
       .get("https://fierce-headland-22833.herokuapp.com/profile", {
-        withCredentials: true
+        headers: {
+          token: cookies.token
+        }
       })
       .then(response => response.data.data)
       .then(json => {
@@ -34,7 +40,11 @@ function Profile() {
           address: event.target.address.value,
           description: event.target.description.value
         },
-        { withCredentials: true }
+        {
+          headers: {
+            token: cookies.token
+          }
+        }
       )
       .then(response => response.data.data)
       .then(json => {
@@ -43,7 +53,9 @@ function Profile() {
       });
   };
 
-  return (
+  return !data ? (
+    <Loading />
+  ) : (
     <div>
       <Navbar />
       <div>
