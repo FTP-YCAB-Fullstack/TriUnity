@@ -3,62 +3,66 @@ import axios from "axios";
 import Profilecomponent from "../components/Profile";
 import ViewProfile from "../components/ViewProfile";
 import Navbar from "../components/Navbar";
+import { useCookies } from "react-cookie";
+import Loading from "../components/Loading";
 
 function Profile() {
   const [data, setData] = useState({});
-    console.log(data);
-  const [isEdit, setEdit] = useState(false)
+  const [isEdit, setEdit] = useState(false);
+  const [cookies] = useCookies(["token"]);
+
   const getData = () => {
     axios
-      .get("http://localhost:5000/profile", { withCredentials: true })
+      .get("https://fierce-headland-22833.herokuapp.com/profile", {
+        headers: {
+          token: cookies.token
+        }
+      })
       .then(response => response.data.data)
       .then(json => {
         setData(json);
       });
   };
 
-//   const patchData = () => {
-//     axios
-//       .patch("http://localhost:5000/profile", {withCredentials: true})
-//       .then(response => response.data)
-//       .then(json => {
-//         console.log(json);
-//         setData(json);
-//       });
-//   };
   useEffect(() => {
     getData();
   }, [isEdit]);
 
-//   const onClicktoProfileController = () => {
-//     props.history.push({
-//       pathname: "/profile"
-//     });
-//   };
-
-const onSubmitUpdate = (event) => {
-    event.preventDefault()
+  const onSubmitUpdate = event => {
+    event.preventDefault();
     axios
-    .patch("http://localhost:5000/profile",{firstName:event.target.firstName.value, lastName:event.target.lastName.value, email:event.target.email.value, address:event.target.address.value, description:event.target.description.value},{ withCredentials: true })
-    .then(response => response.data.data)
-    .then(json => {
-      setEdit(false)
-      setData(json);
-    });
-};
- const editProfile = (_id) =>{
-console.log(_id,"edit")
- }
+      .patch(
+        "https://fierce-headland-22833.herokuapp.com/profile",
+        {
+          firstName: event.target.firstName.value,
+          lastName: event.target.lastName.value,
+          email: event.target.email.value,
+          address: event.target.address.value,
+          description: event.target.description.value
+        },
+        {
+          headers: {
+            token: cookies.token
+          }
+        }
+      )
+      .then(response => response.data.data)
+      .then(json => {
+        setEdit(false);
+        setData(json);
+      });
+  };
 
- 
-  return (
+  return !data ? (
+    <Loading />
+  ) : (
     <div>
-      <Navbar/>
+      <Navbar />
       <div>
         <div>
           <div className="h-auto bg-gray-200 flex flex-wrap items-center justify-center rounded-lg">
             <div className="container lg:1/2 xl:11/3 sm:w-full md:2/2 transform duration-250 easy-in-out bg-gray-100  border-blue-300 rounded-lg">
-              <div className=" h-100 overflow-hidden row-span-3" >
+              <div className=" h-100 overflow-hidden row-span-3">
                 <img
                   className="w-full bg-white rounded-t-lg"
                   src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80"
@@ -84,25 +88,11 @@ console.log(_id,"edit")
                     </span>
                   </header>
                 </div>
-                {isEdit ? <Profilecomponent onSubmitUpdate = {onSubmitUpdate} {...data}/>:
-                <ViewProfile {...data} />}
-                  {/* <div class="text-center px-14 mb-12">
-                  <p className="text-start">
-                    First Name : {data.firstName ? data.firstName : ""}
-                  </p>
-                  <p className="text-start">
-                    Last Name : {data.lastName ? data.lastName : ""}
-                  </p>
-                  <p className="text-start">
-                    Email : {data.email ? data.email : ""}
-                  </p>
-                  <p className="text-start">
-                    Address : {data.address ? data.address : ""}
-                  </p>
-                  <p className="text-start">
-                    Description : {data.description ? data.description : ""}
-                  </p>
-                </div> */}
+                {isEdit ? (
+                  <Profilecomponent onSubmitUpdate={onSubmitUpdate} {...data} />
+                ) : (
+                  <ViewProfile {...data} />
+                )}
               </div>
             </div>
           </div>

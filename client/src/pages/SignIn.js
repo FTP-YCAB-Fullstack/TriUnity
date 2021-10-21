@@ -13,7 +13,7 @@ const SignIn = props => {
   const onSubmitLogin = async event => {
     event.preventDefault();
     const response = await axios
-      .post("http://localhost:5000/users/login", {
+      .post("https://fierce-headland-22833.herokuapp.com/users/login", {
         email: event.target.email.value,
         password: event.target.password.value
       })
@@ -37,7 +37,7 @@ const SignIn = props => {
   const onSubmitRegister = async event => {
     event.preventDefault();
     const response = await axios
-      .post("http://localhost:5000/users/register", {
+      .post("https://fierce-headland-22833.herokuapp.com/users/register", {
         firstName: event.target.firstName.value,
         lastName: event.target.lastName.value,
         email: event.target.email.value,
@@ -72,9 +72,7 @@ const SignIn = props => {
               className="cursor-pointer p-4 w-2/5 text-center hover:shadow-inner text-white font-bold rounded-l-full"
               style={{
                 backgroundColor:
-                  label === "Login"
-                    ? "rgba(255,0,0)"
-                    : "rgba(178,34,34)"
+                  label === "Login" ? "rgba(255,0,0)" : "rgba(178,34,34)"
               }}
               onClick={event => setLabel(event.target.innerHTML)}
             >
@@ -84,9 +82,7 @@ const SignIn = props => {
               className="cursor-pointer p-4 w-2/5 hover:shadow-inner text-center text-white font-bold rounded-r-full"
               style={{
                 backgroundColor:
-                  label === "Register"
-                    ? "rgba(255,0,0)"
-                    : "rgba(178,34,34)"
+                  label === "Register" ? "rgba(255,0,0)" : "rgba(178,34,34)"
               }}
               onClick={event => setLabel(event.target.innerHTML)}
             >

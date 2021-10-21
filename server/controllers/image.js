@@ -68,12 +68,14 @@ class Image {
       const { id } = req.params;
       fs.unlink(path.join(__dirname, `../data/image/${id}`), async err => {
         if (err) return next(err);
-        await ImageForSale.deleteOne({ image: id });
-        const splitFilename = filename.split(".");
-        splitFilename.pop();
+        await ImageForSale.deleteOne({ image: id }).catch(err =>
+          console.log(err)
+        );
         res.status(200).json({
           message: "Success deleting photos for sale"
         });
+        const splitFilename = id.split(".");
+        splitFilename.pop();
         fs.unlink(
           __dirname,
           "../data/image",

@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const setRandomPhotos = async dispacth => {
-  const { data } = await axios.get("http://localhost:5000/photos");
+  const { data } = await axios.get(
+    "https://fierce-headland-22833.herokuapp.com/photos"
+  );
   dispacth({
     type: "SET_RANDOM_PHOTOS",
     payload: {

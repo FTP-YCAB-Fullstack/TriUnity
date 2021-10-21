@@ -20,11 +20,13 @@ function Homepage(props) {
 
   const getPhotosLocal = () => {
     axios
-      .get("http://localhost:5000/photos/local")
+      .get("https://fierce-headland-22833.herokuapp.com/photos/local")
       .then(response => response.data.data)
       .then(json => {
+        console.log(json);
         setLocalPhotos(json);
-      });
+      })
+      .catch(error => console.log(error));
   };
 
   useEffect(() => {
@@ -55,19 +57,12 @@ function Homepage(props) {
     });
   };
 
-  const onClicktoPatternCollection = title => {
-    props.history.push({
-      pathname: `/collections/${title}`
-    });
-  };
-
   const onSubmitSearch = async event => {
     event.preventDefault();
     try {
       const valueSearch = event.target.search.value;
       const response = await axios.get(
-        `http://localhost:5000/search/photos/?query=${valueSearch.trim()}`,
-        { withCredentials: true }
+        `https://fierce-headland-22833.herokuapp.com/search/photos/?query=${valueSearch.trim()}`,
       );
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
