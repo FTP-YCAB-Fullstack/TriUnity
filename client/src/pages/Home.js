@@ -63,7 +63,6 @@ function Homepage(props) {
       const valueSearch = event.target.search.value;
       const response = await axios.get(
         `https://fierce-headland-22833.herokuapp.com/search/photos/?query=${valueSearch.trim()}`,
-        { withCredentials: true }
       );
       if (response && response.status === 200) {
         setSearchResult(response.data.data);
