@@ -4,7 +4,7 @@ const ItemPhotoSale = props => {
   const urlPhoto = "https://fierce-headland-22833.herokuapp.com/image/";
   return (
     <div>
-      <div className="flex h-52 bg-red-200 rounded-xl m-4 p-4 px-6 shadow-lg">
+      <div className="flex h-full md:flex-row flex-col bg-red-200 rounded-xl m-4 p-4 px-6 shadow-lg justify-center items-center">
         <img
           className="max-w-xs rounded-lg"
           src={urlPhoto + props.image}
@@ -21,7 +21,7 @@ const ItemPhotoSale = props => {
         <div>
           <i
             onClick={() => props.onClickDeleteSalePhoto(props.image)}
-            className="fa fa-trash fa-lg cursor-pointer hover:text-red-600"
+            className="fa fa-trash fa-lg mt-8 cursor-pointer hover:text-red-600"
           ></i>
         </div>
       </div>
