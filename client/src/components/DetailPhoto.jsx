@@ -4,16 +4,16 @@ function DetailPhoto(props) {
   return (
     <div className="h-2xl md:h-screen p-5 mt-16 flex justify-center items-center">
       <div className="max-h-full w-4/5 mb-12 bg-white overflow-hidden rounded-3xl flex flex-col md:flex-row shadow-2xl">
-        <div className="w-full h-full flex items-center bg-yellow-600">
+        <div className="w-full h-full flex items-center">
           <img
             src={props.data === undefined ? "" : props.data.image}
             alt="foto gue"
             className="w-full rounded-bl-3xl pointer-events-none"
           />
         </div>
-        <div className="w-full h-full bg-white p-7 flex flex-col">
+        <div className="w-full bg-white p-7 flex flex-col">
           <div className="flex flex-row justify-between">
-            <h2>
+            <h2 className="font-bold">
               {props.data === undefined
                 ? "Free"
                 : props.data.price === undefined
@@ -23,7 +23,7 @@ function DetailPhoto(props) {
           </div>
           <div className="h-full flex-col flex justify-between">
             <div className="pt-12">
-              <h1 className="mb-3">
+              <h1 className="mb-3 font-semibold">
                 {props.data === undefined
                   ? "Untitle Photo"
                   : props.data.title
@@ -44,13 +44,13 @@ function DetailPhoto(props) {
                     className="pointer-events-none"
                   />
                 </div>
-                <h1>
+                <h1 className="font-semibold">
                   {props.data === undefined ? "" : props.data.user.fullName}
                 </h1>
               </div>
             </div>
             <div>
-              <h1>Description :</h1>
+              <h1 className="font-semibold">Description :</h1>
               <p>
                 {props.data === undefined
                   ? "this photo has no description"
@@ -62,7 +62,7 @@ function DetailPhoto(props) {
 
             <div className="flex justify-end">
               <button
-                className="bg-red-600 py-2 px-8 rounded-full"
+                className="bg-red-600 py-2 px-8 rounded-full font-medium text-white"
                 onClick={() =>
                   props.onClickDownload(
                     props.data === undefined ? "#" : props.data.download,

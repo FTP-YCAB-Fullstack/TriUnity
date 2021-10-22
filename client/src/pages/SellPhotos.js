@@ -2,12 +2,17 @@ import React, { useState, Component } from "react";
 import Sellphotos from "../components/Sellphotos";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useCookies } from "react-cookie";
+import Loading from "../components/Loading";
 
 export default function SellPhotos(props) {
   const [checkedFree, setCheckedFree] = useState(false);
-  const [files, setFiles] = useState([])
+  const [files, setFiles] = useState([]);
+  const [cookies] = useCookies(["token"]);
+  const [isLoading, setLoading] = useState(false);
 
   const onClickSell = async event => {
+    setLoading(true);
     event.preventDefault();
 
     const formData = new FormData();
@@ -34,14 +39,15 @@ export default function SellPhotos(props) {
         formData.append("description", description);
       }
       const response = await axios
-        .post("http://localhost:5000/image", formData, {
+        .post("https://fierce-headland-22833.herokuapp.com/image", formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          },
-          withCredentials: true
+            "Content-Type": "multipart/form-data",
+            token: cookies.token
+          }
         })
         .catch(error => error.response);
-      if (response.status === 201) {
+      setLoading(false);
+      if (response && response.status === 201) {
         props.history.replace({
           pathname: "/photos-for-sale"
         });
@@ -49,7 +55,7 @@ export default function SellPhotos(props) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: response.data.message
+          text: response || "Internal Server Error"
         });
       }
     } else {
@@ -62,14 +68,16 @@ export default function SellPhotos(props) {
       });
     }
   };
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div>
       <Sellphotos
         onClickSell={onClickSell}
         checkedFree={checkedFree}
         setCheckedFree={setCheckedFree}
-        setFiles = {setFiles}
-        files = {files}
+        setFiles={setFiles}
+        files={files}
       />
     </div>
   );
